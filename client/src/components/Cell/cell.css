@@ -1,0 +1,7 @@
+.celda{
+    height: 30px;
+    width: 30px;
+    display: grid;
+    place-items: center;
+    border:solid 1px tomato
+}
