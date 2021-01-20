@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+.headerGame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+}

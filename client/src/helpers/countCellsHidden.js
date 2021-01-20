@@ -1,8 +1,8 @@
 export const countCellsHidden = (game) =>{
-    let matrix = game.matrix
+    let table = game.table
     let arr=[];
 
-    matrix.map(row=>{
+    table.map(row=>{
         return(
             row.map(cell=>{
                 if(cell.show===false){
@@ -14,8 +14,8 @@ export const countCellsHidden = (game) =>{
     return arr
 }
 export const showAll = (game) =>{
-    let matrix = game.matrix
-    matrix.map(row=>{
+    let table = game.table
+    table.map(row=>{
         return(
             row.map(cell=>{
                 if(cell.value!=='x'){
@@ -24,7 +24,7 @@ export const showAll = (game) =>{
             })
         )
     })
-    return matrix
+    return table
 
 }
 

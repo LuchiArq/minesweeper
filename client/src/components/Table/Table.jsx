@@ -10,56 +10,46 @@ import './table.css'
 
 const Table =() => {
 
-const [game,setgame] = useState(createTable(5,5,3))
-
-console.log(game.minesLocation)
+const [game,setgame] = useState(createTable(10,10,20))
 
 const getFlag = (event,x,y)=>{
     event.preventDefault()
-    let newTable = plantFlag(game.matrix,y,x)
+    let newTable = plantFlag(game.table,y,x)
     setgame({...game,
-        matrix:newTable})
-
+        table:newTable})
     let checkFlagArray = getCellFlag(game)
     
-    console.log("banderas : ",checkFlagArray," Minas: ",game.minesLocation)
-    
-    if(JSON.stringify(checkFlagArray)==JSON.stringify(game.minesLocation)){
+    if(JSON.stringify(checkFlagArray)===JSON.stringify(game.minesLocation)){
         alert(" you win")
         setgame({...game,
-            matrix:showAll(game)})
+            table:showAll(game)})
         }
-    console.log(game.matrix[x][y])
-}
-
-
-    
-const UpdateGame = (x,y) =>{
-
-    let newTable = showCell(game,y,x)
-    if(newTable.lose){
-        alert(' you lose')
     }
-    setgame({...game,
-        matrix:newTable.table}
-        )
+    
+    const UpdateGame = (x,y) =>{
         
-    if(countCellsHidden(game).length == game.minesLocation.length){
-        alert(" you win")
-        setgame({...game,
-            matrix:showAll(game)})
+        let newTable = showCell(game,y,x)
+        if(newTable.lose){
+            alert(' you lose')
         }
+        setgame({...game,
+            table:newTable.table}
+            )
+            
+            if(countCellsHidden(game).length === game.minesLocation.length){
+                alert(" you win")
+                setgame({...game,
+                    table:showAll(game)})
+                }
 
     } 
 
     return (
-        <div>
-            <h1>Table</h1>
             <div>
             
             {
-                game.matrix.length ?
-                game.matrix.map((filas,i) =>{
+                game.table.length ?
+                game.table.map((filas,i) =>{
                     return (
                     <div className="tabla" key={i}> 
                    {     filas.map((celda,j)=>{
@@ -74,7 +64,7 @@ const UpdateGame = (x,y) =>{
                 :null
             }
             </div>
-        </div>
+
     )
 }
 

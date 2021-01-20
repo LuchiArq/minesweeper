@@ -1,17 +1,17 @@
-export const plantFlag = (matrix,x,y) =>{
-    if(matrix[x][y].show){
-        return matrix
+export const plantFlag = (table,x,y) =>{
+    if(table[x][y].show){
+        return table
     }
-    matrix[x][y].flag= !matrix[x][y].flag
-    return matrix
+    table[x][y].flag= !table[x][y].flag
+    return table
 }
 
 
 
 export const getCellFlag = (game)=>{
-    let matrix = game.matrix
+    let table = game.table
     let flagArray = []
-    matrix.map(row=>{
+    table.map(row=>{
         return(
             row.map(cell=>{
                 if(cell.flag===true){
