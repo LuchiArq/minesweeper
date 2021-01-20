@@ -1,0 +1,10 @@
+.time{
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
+
+.time-reloj{
+    height: 38px;
+    width: 38px;
+}

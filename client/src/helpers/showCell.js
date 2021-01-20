@@ -1,9 +1,9 @@
 const showCell = (game,y,x) =>{
-    console.log(reveal(game.matrix,y,x))
-    let newTableGame = revealCell(game.matrix,y,x)
+    console.log(game)
+    let newTableGame = revealCell(game,y,x)
 
     if(newTableGame.lose){
-       let gameLose = lose(newTableGame.matrix,game.minesLocation)
+       let gameLose = lose(newTableGame.table,game.minesLocation)
         return JSON.parse(JSON.stringify({lose:true,table:gameLose})) 
     }
 
@@ -11,74 +11,80 @@ const showCell = (game,y,x) =>{
 }
 
 
-function lose(matrix,mines){
+function lose(table,mines){
+    console.log("CUALES SON LAS MINAS ",mines)
     for(let i=0;i<mines.length;i++){
-        matrix[mines[i].x][mines[i].y].show=true
+        table[mines[i].y][mines[i].x].show=true
     }
 
-    return matrix
+    return table
 }
 
-function revealCell(matrix,y,x){
-    matrix[y][x].show=true
-
-    if(matrix[y][x].value==='x'){
-        return {lose:true,
-                matrix:matrix}
-    } 
-    if(matrix[y][x].value!==0){
-        matrix[y][x].show=true 
-        return matrix
+function revealCell(game,y,x){
+    let table = game.table
+    if(table[y][x].flag){
+        return table
     }
-    let arr = reveal(matrix,y,x)
+    table[y][x].show=true
+    
+    if(table[y][x].value==='x'){
+        return {lose:true,
+                table}
+    } 
+    if(table[y][x].value!==0){
+        table[y][x].show=true 
+        return table
+    }
+    let arr = getArea(game,y,x)
     arr.map(data=>{
-        if(data.value!==0 && matrix[data.y][data.x].show==false){
-            matrix[data.y][data.x].show=true
+        if(data.value!==0 && table[data.y][data.x].show===false && table[data.y][data.x].flag===false){
+            table[data.y][data.x].show=true
         }
-        if(data.value===0 && matrix[data.y][data.x].show==false){
-            matrix[data.y][data.x].show=true
-            revealCell(matrix,data.y,data.x)
+        if(data.value===0 && table[data.y][data.x].show===false && table[data.y][data.x].flag===false){
+            table[data.y][data.x].show=true
+            revealCell(game,data.y,data.x)
         }
     })
-    return matrix
+    return table
 
 }
 
-function reveal(matrix,y,x){
-    let row = matrix.length
-    let columns = matrix[0].length
+function getArea(game,y,x){
+    let table = game.table
+    let row = game.row
+    let columns = game.columns
     let arr =[]
         //arriba
         if(y>0){
-            arr.push(matrix[y-1][x])
+            arr.push(table[y-1][x])
         }
         //arriba derecha
         if(y>0 && x<columns-1){
-            arr.push(matrix[y-1][x+1])
+            arr.push(table[y-1][x+1])
         }
         //derecha
         if( x<columns-1){
-            arr.push(matrix[y][x+1])
+            arr.push(table[y][x+1])
         }
         //abajo derecha
         if(y<row-1 && x<columns-1){
-            arr.push(matrix[y+1][x+1])
+            arr.push(table[y+1][x+1])
         }
         //abajo
         if(y<row-1){
-            arr.push(matrix[y+1][x])
+            arr.push(table[y+1][x])
         }
         //abajo izquierda
         if(y<row-1 && x>0){
-            arr.push(matrix[y+1][x-1])
+            arr.push(table[y+1][x-1])
         }
         //izquierda
         if(x>0){
-            arr.push(matrix[y][x-1])
+            arr.push(table[y][x-1])
         }
         //arriba izquierda
         if(y>0 && x>0){
-            arr.push(matrix[y-1][x-1])
+            arr.push(table[y-1][x-1])
         }
     return arr
 }

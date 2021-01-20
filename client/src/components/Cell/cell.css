@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
 .celda{
     height: 30px;
     width: 30px;
     display: grid;
     place-items: center;
-    border:solid 1px tomato
+    margin: 1px;
+    border-radius: 3px;
+    background-color: #3A3335;
+    font-family: 'Rubik', sans-serif;
+}
+.celda-revealed{
+    background-color: #FDF0D5;
 }

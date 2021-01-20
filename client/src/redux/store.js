@@ -1,8 +1,9 @@
 import {applyMiddleware, combineReducers, createStore, compose} from 'redux';
 import thunk from 'redux-thunk';
+import gameReducer from './reducers/gameReducer'
 
 const rootReducer=combineReducers({
-    tableReducer:"tableReducer",
+    gameReducer:gameReducer,
 })
 
 const store = createStore(

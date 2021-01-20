@@ -1,21 +1,32 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import { ReactComponent as Flag } from '../../assets/flag.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import {start} from '../../redux/actions/gameActions'
 import './cell.css'
+
 const Cell = ({flag,UpdateGame,celda})=>{
-    return (
-        <div className="celda" 
-            onClick={()=>{
-                if(celda.flag){
-                    return
-                }
-                console.log(celda)
-                UpdateGame(celda.x,celda.y)
-            }}
-            onContextMenu={(e)=>{
-                flag(e,celda.x,celda.y)
-            }}
-        >
-            { celda.flag===true ? "F": celda.show===true ? celda.value:  ""}
-        </div>
+const dispatch = useDispatch()
+const stateGame= useSelector((store)=>store.gameReducer.state)
+return (
+    <div className={`celda ${celda.show ? 'celda-revealed':""}`} 
+    onClick={()=>{
+            if(celda.flag){return}
+            if(!stateGame){
+                dispatch(start())
+            }
+            UpdateGame(celda.x,celda.y)
+            console.log(celda)
+
+         }}
+    onContextMenu={(e)=>{
+            flag(e,celda.x,celda.y)
+        }}>
+            
+        { celda.flag===true ? 
+            <Flag/>: 
+            celda.show===true && celda.value!==0? 
+                celda.value:  ""}
+    </div>
     )
 }
 

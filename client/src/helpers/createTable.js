@@ -1,14 +1,14 @@
 const createTable =  (row,columns,mines) => {
      //se crea el tablero
     let minesLocation=[]
-    let matrix = new Array(row)
-         for(let i=0;i<matrix.length;i++){
-            matrix[i]=new Array(columns)
+    let table = new Array(row)
+         for(let i=0;i<table.length;i++){
+            table[i]=new Array(columns)
         }
     
-       for(let i=0;i<matrix.length;i++){
-        for(let j=0;j<matrix[i].length;j++){
-            matrix[i][j]={
+       for(let i=0;i<table.length;i++){
+        for(let j=0;j<table[i].length;j++){
+            table[i][j]={
                 value:0,
                 y:i,
                 x:j,
@@ -21,8 +21,8 @@ const createTable =  (row,columns,mines) => {
     while(mines>0){
         let y = Math.floor(Math.random() * row)
         let x = Math.floor(Math.random() * columns)
-        if(matrix[x][y].value !== 'x'){
-            matrix[x][y].value = 'x'
+        if(table[y][x].value !== 'x'){
+            table[y][x].value = 'x'
             mines--
         }
     }
@@ -33,43 +33,43 @@ const createTable =  (row,columns,mines) => {
         for(let j=0; j<columns;j++){
             
             //arriba
-            if(i>0 && matrix[i-1][j].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i>0 && table[i-1][j].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //arriba derecha
-            if(i>0 && j<columns-1 && matrix[i-1][j+1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i>0 && j<columns-1 && table[i-1][j+1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //derecha
-            if( j<columns-1 && matrix[i][j+1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if( j<columns-1 && table[i][j+1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //abajo derecha
-            if(i<row-1 && j<columns-1 &&  matrix[i+1][j+1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i<row-1 && j<columns-1 &&  table[i+1][j+1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //abajo
-            if(i<row-1 && matrix[i+1][j].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i<row-1 && table[i+1][j].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //abajo izquierda
-            if(i<row-1 && j>0 && matrix[i+1][j-1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i<row-1 && j>0 && table[i+1][j-1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //izquierda
-            if(j>0 && matrix[i][j-1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(j>0 && table[i][j-1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
             //arriba izquierda
-            if(i>0 && j>0 && matrix[i-1][j-1].value==='x'){
-                matrix[i][j].value!=='x' && matrix[i][j].value++
+            if(i>0 && j>0 && table[i-1][j-1].value==='x'){
+                table[i][j].value!=='x' && table[i][j].value++
             }
 
         }
     }
 
     
-    matrix.map(row=>{
+    table.map(row=>{
         return(
             row.map(cell=>{
                 if(cell.value=='x'){
@@ -78,9 +78,12 @@ const createTable =  (row,columns,mines) => {
             })
         )
     })
+    
 
        return {
-                matrix,
+                table,
+                row,
+                columns,
                 minesLocation
             } 
     
