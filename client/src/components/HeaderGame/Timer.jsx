@@ -23,7 +23,7 @@ useEffect(() => {
     
 return(
     <div className="time">
-        <h1>{seconds===0?"000":((seconds/100).toFixed(2)).toString().replace(".","")}</h1>
+        <h2>{seconds===0?"000":((seconds/100).toFixed(2)).toString().replace(".","")}</h2>
         <Reloj className="time-reloj"/>
     </div>
 )

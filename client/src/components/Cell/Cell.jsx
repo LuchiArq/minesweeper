@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { ReactComponent as Flag } from '../../assets/flag.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import {start} from '../../redux/actions/gameActions'
+import {start,plantFlag} from '../../redux/actions/gameActions'
 import './cell.css'
 
 const Cell = ({flag,UpdateGame,celda})=>{
@@ -20,6 +20,7 @@ return (
          }}
     onContextMenu={(e)=>{
             flag(e,celda.x,celda.y)
+            dispatch(plantFlag({x:celda.x,y:celda.y}))
         }}>
             
         { celda.flag===true ? 
