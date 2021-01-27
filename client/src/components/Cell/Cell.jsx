@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { ReactComponent as Flag } from '../../assets/flag.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import {start,plantFlag} from '../../redux/actions/gameActions'

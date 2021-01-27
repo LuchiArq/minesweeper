@@ -67,7 +67,7 @@ functions:
     handler: table/TableHandler.loadTable
     events:
       - http:
-          path:  table/loadTable
+          path:  table/loadTable/{_id}
           method: get
           cors: true
 

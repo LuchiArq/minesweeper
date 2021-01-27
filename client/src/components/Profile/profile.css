@@ -1,4 +1,4 @@
-.home{
+.profile{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 85%;
     width: 65%;
@@ -10,58 +10,34 @@
     border-radius: 15px;
     box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.3);
 }
-.home-container {
+.profile-container {
     height: 100%;
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    grid-template-rows: .3fr 1fr .8fr .2fr;
+    grid-template-rows: .3fr 1fr .3fr;
     gap: 0px 0px;
     grid-template-areas:
-      ". buttonGroup"
-      "welcome ."
-      "jugar ."
-      "aclaracion .";
+      "header header"
+      "savedGame ."
+      ". jugar";
   }
-  .home-container-buttonGroup{
+.profile-container-header{
       grid-area:buttonGroup;
       display: flex;
       justify-content: space-around;
   }
 
-.home-button-jugar{ 
+.profile-button-jugar{ 
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: flex-end;
     grid-area: jugar;
 }
 
-.home-text-aclaracion{
-    grid-area: aclaracion;
-    margin-top: 5px;
-    font-size: 12px;
-    color : #FDF0D5
-    }
-.home-container-welcome{
-    grid-area: welcome; 
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
+.profile-container-savedGame{
     
 }
-.home-text{
-    width: 60%;
-    font-size: calc(.6em + .5vw);
-    color : #FDF0D5;
-    margin-bottom: 20px;
-}   
-.home-title{
-    width: auto;
-    font-size: calc(3em + 1vw);
-    font-weight: 750;
-    color:#70246E;
-    letter-spacing: 5px;
-    border-radius: 10px;
-}
+
 @media (max-width: 1050px) { 
     .home{
         width: 80%;

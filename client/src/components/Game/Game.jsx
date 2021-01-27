@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import Table from '../Table/Table'
 import HeaderGame from '../HeaderGame/HeaderGame'
 import './game.css'

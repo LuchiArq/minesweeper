@@ -1,34 +1,62 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
+import CreateGame from '../Modal/CreateGame/CreateGame'
+import Register from '../Modal/Register/Register'
+import Rules from '../Modal/Rules/Rules'
 import Button from '../Button/Button'
+import Modal from '../Modal/Modal'
+import Login from '../Modal/Login/Login'
 import './home.css'
+
 const Home = () =>{
+
+const [modalCreateGame,setModalCreateGame]= useState(false)
+const [modalRegister,setModalRegister]= useState(false)
+const [modalLogin,setModalLogin]= useState(false)
+const [modalRules,setModalRules]= useState(false)
+
+function OpenModalRules(){
+    setModalRules(!modalRules)
+}
+
+function OpenModalRegister(){
+    setModalRegister(!modalRegister)
+}
+
+function OpenModalGame(){
+    setModalCreateGame(!modalCreateGame)
+}
+function OpenModalLogin(){
+    setModalLogin(!modalLogin)
+}
     return(
         <div className="home">
+            <Modal closeModal={OpenModalGame} active={modalCreateGame}>
+                <CreateGame/>
+            </Modal>
+            <Modal closeModal={OpenModalRegister} active={modalRegister}> 
+                <Register/>
+            </Modal>
+            <Modal closeModal={OpenModalLogin} active={modalLogin}> 
+                <Login/>
+            </Modal>
+            <Modal closeModal={OpenModalRules} active={modalRules}> 
+                <Rules closeModal={OpenModalRules}/>
+            </Modal>
             <div className="home-container">
                 <div className="home-container-buttonGroup">
-                    <Button buttonType='register' children='Registrarse'/>
-                    <Button buttonType='login' children='Iniciar sesion'/>
+                    <Button onClick={OpenModalRegister} buttonType='register' children='Registrarse'/>
+                    <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion'/>
                 </div>
                 <div className="home-container-welcome">
                     <p className="home-title">Buscaminas</p>
-                    <p className="home-text">
-                        • El objetivo del juego es despejar un campo de minas sin detonar ninguna.
-                    </p>
-                    <p className="home-text">
-                        • Algunas casillas tienen un número, el cual indica la cantidad de minas que hay en las casillas circundantes. Así, si una casilla tiene el número 3, significa que de las ocho casillas que hay alrededor hay 3 con minas y 5 sin minas. 
-                    </p>
-                    <p className="home-text">
-                        • Si se descubre una casilla sin número indica que ninguna de las casillas vecinas tiene mina y éstas se descubren automáticamente.
-                    </p>
-                    <p className="home-text">
-                        • Si se descubre una casilla con una mina se pierde la partida.
-                    </p>
-                    <p className="home-text">
-                        • Se puede poner una marca (boton secundario) en las casillas que el jugador piensa que hay minas para ayudar a descubrir las que están cerca.
-                    </p>    
+                    <p className="home-text">Buscaminas es un videojuego para un jugador.El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p> 
+                    <Button onClick={OpenModalRules} buttonType='register' children='Reglas'/> 
                 </div>
                 <div className="home-button-jugar">
-                    <Button buttonType='primary' children='Jugar'/>
+                    <Button onClick={OpenModalGame} buttonType='primary'>Jugar</Button>
+                </div>
+                <div className="home-text-aclaracion">
+                    <p>Registrese para poder guardar sus partidas, sino puede continuar como usuario invitado</p>
                 </div>
             </div>
         </div>
