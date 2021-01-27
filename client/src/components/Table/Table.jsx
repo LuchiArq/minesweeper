@@ -1,16 +1,19 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import Cell from '../Cell/Cell'
 import createTable from '../../helpers/createTable.js'
 import showCell from '../../helpers/showCell.js'
 import {plantFlag,getCellFlag} from '../../helpers/flag.js'
 import {countCellsHidden,showAll} from '../../helpers/countCellsHidden.js'
+import { useSelector } from 'react-redux';
 import './table.css'
 
 
 
 const Table =() => {
 
-const [game,setgame] = useState(createTable(10,10,20))
+const {row,columns,mines} = useSelector((store)=>store.gameReducer.newGame)
+
+const [game,setgame] = useState(createTable(row,columns,mines))
 
 const getFlag = (event,x,y)=>{
     event.preventDefault()
@@ -26,24 +29,22 @@ const getFlag = (event,x,y)=>{
         }
     }
     
-    const UpdateGame = (x,y) =>{
+const UpdateGame = (x,y) =>{
+    
+    let newTable = showCell(game,y,x)
+    if(newTable.lose){
+        alert(' you lose')
+    }
+    setgame({...game,
+        table:newTable.table}
+        )
         
-        let newTable = showCell(game,y,x)
-        if(newTable.lose){
-            alert(' you lose')
-        }
-        setgame({...game,
-            table:newTable.table}
-            )
-            
-            if(countCellsHidden(game).length === game.minesLocation.length){
-                alert(" you win")
-                setgame({...game,
-                    table:showAll(game)})
-                }
-
-    } 
-
+        if(countCellsHidden(game).length === game.minesLocation.length){
+            alert(" you win")
+            setgame({...game,
+                table:showAll(game)})
+            }
+} 
     return (
             <div>
             

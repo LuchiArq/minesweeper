@@ -1,0 +1,44 @@
+.button{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    border:none;
+    box-shadow: 0px 4px 0px 0px #4c226c;
+    transition: all cubic-bezier(0.215, 0.610, 0.355, 1) .4s;
+}
+
+.button:active{
+    box-shadow:none;
+    transform: translateY(2px);
+}
+
+.button-primary{
+    height: 40px;
+    width: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #FDF0D5;
+    border: solid 4px #9F2771;
+    color: #9F2771;
+}
+
+.button-register{
+    font-size: 1em;
+    height: 40px;
+    width: 140px;
+    background-color: #9F2771;
+    color: white
+}
+
+.button-login{
+    font-size: 1em;
+    height: 40px;
+    width: 140px;
+    background-color:transparent;
+    border: solid 4px #9F2771;
+    color: white;
+
+}

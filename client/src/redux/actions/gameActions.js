@@ -1,17 +1,19 @@
 import axios from 'axios'
 
 export const PAUSE = "PAUSE";
-export const NEW_GAME_GUEST = "NEW_GAME_GUEST";
+export const NEW_GAME = "NEW_GAME";
 export const LOAD_GAME = "LOAD_GAME";
 export const SAVE_GAME = "SAVE_GAME";
 export const START = "START";
+export const PLANT_FLAG = "PLANT_FLAG";
 
 
 
 
-export function newGameGuest(newGame){
+
+export function newGame(newGame){
     return{
-        type:NEW_GAME_GUEST,
+        type:NEW_GAME,
         newGame
     }
 }
@@ -24,6 +26,13 @@ export function pause(){
 
 export function start(){
     return{
-        type:START,
+        type:START
+    }
+}
+
+export function plantFlag(cell){
+    return{
+        type:PLANT_FLAG,
+        cell
     }
 }

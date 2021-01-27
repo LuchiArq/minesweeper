@@ -24,9 +24,10 @@ module.exports.createTable = async (r, cb) => {
 module.exports.loadTable = async (r, cb) => {
     cb.callbackWaitsForEmptyEventLoop = false;
     const token = verify(r.headers.Authorization)
+    console.log("ID DE LA TABLA ",r.pathParameters._id)
     try {
         await db();
-        const res = await load(JSON.parse(r.body._id),token.id);
+        const res = await load(r.pathParameters._id,token.id);
         return success(res);
     } catch (err) {
         return error(err);
@@ -85,7 +86,7 @@ const topScores = () =>{
 
 const load = async (id,userId) =>{
    const table = await Table.find({_id:id,userId:userId})
-   if(table){
+   if(!table){
         return error({message:"No se puede cargar la tabla"})
     }
     return table
