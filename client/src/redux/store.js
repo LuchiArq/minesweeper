@@ -8,6 +8,7 @@ const rootReducer=combineReducers({
     userReducer
 })
 
+
 const store = createStore(
     rootReducer,
     compose(applyMiddleware(thunk),
@@ -16,5 +17,7 @@ const store = createStore(
             window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )
 );
+
+console.log("STORE: ",store)
 
 export default store;

@@ -1,4 +1,5 @@
-const createTable =  (row,columns,mines) => {
+const createTable = (row,columns,mines) => {
+    console.log("ASDASDASD")
      //se crea el tablero
     let minesLocation=[]
     let table = new Array(parseInt(row))
@@ -18,13 +19,12 @@ const createTable =  (row,columns,mines) => {
         }
        }
     // se colocan minas de manera aleatoria por todo el tablero
-
-    console.log(mines)
     while(mines>0){
         let y = Math.floor(Math.random() * row)
         let x = Math.floor(Math.random() * columns)
         if(table[y][x].value !== 'x'){
             table[y][x].value = 'x'
+            minesLocation.push({x:x,y:y})
             mines--
         }
     }
@@ -69,19 +69,6 @@ const createTable =  (row,columns,mines) => {
 
         }
     }
-
-    
-    table.map(row=>{
-        return(
-            row.map(cell=>{
-                if(cell.value=='x'){
-                    minesLocation.push({x:cell.x,y:cell.y})
-                }
-            })
-        )
-    })
-    
-
        return {
                 table,
                 row,

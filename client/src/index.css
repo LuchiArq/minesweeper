@@ -1,3 +1,5 @@
+@import './assets/_master.css';
+
 body,html,#root{
   height: 100%;
   min-height: 100vh;

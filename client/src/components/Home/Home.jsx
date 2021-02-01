@@ -49,8 +49,12 @@ function OpenModalLogin(){
                 </div>
                 <div className="home-container-welcome">
                     <p className="home-title">Buscaminas</p>
-                    <p className="home-text">Buscaminas es un videojuego para un jugador.El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p> 
-                    <Button onClick={OpenModalRules} buttonType='register' children='Reglas'/> 
+                    <p className="home-text">Buscaminas es un videojuego para un jugador.</p>
+                    <p className="home-text"> El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p> 
+                    <p className="home-text"> Buena Suerte!</p>
+                    <span className="home-button-rules" >
+                        <Button onClick={OpenModalRules} buttonType='register' children='Reglas'/> 
+                    </span>
                 </div>
                 <div className="home-button-jugar">
                     <Button onClick={OpenModalGame} buttonType='primary'>Jugar</Button>

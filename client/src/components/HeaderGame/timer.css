@@ -1,9 +1,13 @@
 .time{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 90px;
+    margin: 0px 5px;
 }
 
 .time-reloj{
-    height: 38px;
-    width: 38px;
+    display: flex;
+    height: 35px;
+    width: 35px;
 }

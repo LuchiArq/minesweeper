@@ -5,9 +5,9 @@ const Register = () =>{
     return(
         <div className="register">
             <div className="register-texto">
-                <h2>Registro</h2>
+                <h2 className="modal-title-small">Registro</h2>
             </div>
-            <form className="register-form" onSubmit={
+            <form className="modal-body register-form" onSubmit={
                 (e=>{
                     e.preventDefault();
                 })

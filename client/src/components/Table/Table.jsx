@@ -1,70 +1,122 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import HeaderGame from '../HeaderGame/HeaderGame'
 import Cell from '../Cell/Cell'
-import createTable from '../../helpers/createTable.js'
 import showCell from '../../helpers/showCell.js'
-import {plantFlag,getCellFlag} from '../../helpers/flag.js'
-import {countCellsHidden,showAll} from '../../helpers/countCellsHidden.js'
-import { useSelector } from 'react-redux';
+import {plantFlag} from '../../helpers/flag.js'
+import {countCellsHidden} from '../../helpers/countCellsHidden.js'
+import {LoadStateLocalStorage} from '../../helpers/localStorage.js'
+import createTable from '../../helpers/createTable.js'
+import {setStateGame,newGame,saveTime} from '../../redux/actions/gameActions'
+import { useSelector,useDispatch } from 'react-redux';
+import FinishGame from  '../Modal/FinishGame/FinishGame'
+import Modal from '../Modal/Modal'
 import './table.css'
 
-
-
 const Table =() => {
+const dispatch = useDispatch()
+//console.log("Tamaño de pantalla",window.screen)
 
-const {row,columns,mines} = useSelector((store)=>store.gameReducer.newGame)
+const {flag,state} = useSelector((store)=>store.gameReducer) 
+const {row,columns,mines}=LoadStateLocalStorage("game")
+const [game,setgame] = useState()
+const [modalFinishGame, setModaFinishGame] = useState(false)
 
-const [game,setgame] = useState(createTable(row,columns,mines))
+useEffect(()=>{
+    dispatch(newGame(LoadStateLocalStorage("game")))
+   !game && setgame(createTable(row,columns,mines)) 
+},[])   
+
+
+const OpenModalFinishGame =() =>{
+    setModaFinishGame(!modalFinishGame)
+}
+
+const SaveGame =(table)=>{
+    setgame({...game,
+        table:table})
+}
+
+const firstClick = (x,y)=>{
+    let newgame = createTable(row,columns,mines)
+    if(newgame.table[y][x].value==="x"){
+       return firstClick(x,y)
+   }
+   let newtable=showCell(newgame,y,x)
+   dispatch(setStateGame("in progress"))
+   setgame({...game,
+            table:newtable.table,
+            minesLocation:newgame.minesLocation})
+    
+   return 
+}
+
+const again=()=>{
+    dispatch(saveTime(0))
+    dispatch(setStateGame(""))
+    dispatch(newGame(LoadStateLocalStorage("game")))
+    modalFinishGame && setModaFinishGame(!modalFinishGame)
+    setgame(createTable(row,columns,mines))
+}
 
 const getFlag = (event,x,y)=>{
     event.preventDefault()
     let newTable = plantFlag(game.table,y,x)
-    setgame({...game,
-        table:newTable})
-    let checkFlagArray = getCellFlag(game)
-    
-    if(JSON.stringify(checkFlagArray)===JSON.stringify(game.minesLocation)){
-        alert(" you win")
-        setgame({...game,
-            table:showAll(game)})
-        }
+    SaveGame(newTable)
     }
-    
+
 const UpdateGame = (x,y) =>{
-    
     let newTable = showCell(game,y,x)
+
     if(newTable.lose){
-        alert(' you lose')
+        dispatch(setStateGame("loss"))
+        OpenModalFinishGame()
+        return
     }
-    setgame({...game,
-        table:newTable.table}
-        )
+    
+    SaveGame(newTable.table)
         
-        if(countCellsHidden(game).length === game.minesLocation.length){
-            alert(" you win")
-            setgame({...game,
-                table:showAll(game)})
-            }
+    if(countCellsHidden(game).length === game.minesLocation.length){
+        dispatch(setStateGame("winn"))
+        OpenModalFinishGame()
+        return
+    }
 } 
     return (
-            <div>
-            
-            {
-                game.table.length ?
-                game.table.map((filas,i) =>{
-                    return (
-                    <div className="tabla" key={i}> 
-                   {     filas.map((celda,j)=>{
-                        return <Cell  
-                                UpdateGame={UpdateGame}
-                                flag={getFlag}
-                                celda={celda} 
-                                key={j}/>
-                    })}
-                    </div> )
-            })
-                :null
-            }
+
+    <div className="mainContainerGame slideIn">
+        <Modal closeModal={OpenModalFinishGame} active={modalFinishGame}>
+            <FinishGame 
+                modalType={state} 
+                title={state==="winn"? "Ganaste":"Perdiste"} 
+                textButton={state==="winn"? "Jugar de Nuevo":"Reintentar"}
+                newGame={again}
+                />
+        </Modal> 
+        <div className="game-container">
+            <div className="game-container-headerGame">
+                <HeaderGame again={again} flag={flag} mines={mines} />
             </div>
+            <div className="game-container-table">
+                {     
+                  game && game.table.length ?
+                    game.table.map((filas,i) =>{
+                        return (
+                        <div className="table-game " key={i}> 
+                    {     filas.map((celda,j)=>{
+                            return <Cell  
+                                    UpdateGame={!state?firstClick:UpdateGame}
+                                    flag={getFlag}
+                                    celda={celda} 
+                                    key={j}/>
+                        })}
+                        </div> )
+                })
+                    :<div></div>
+                }
+               
+            </div>
+        </div>
+    </div>
 
     )
 }

@@ -1,49 +1,88 @@
-
 import React,{useState} from 'react'
 import Button from '../../Button/Button'
-import { useDispatch, useSelector } from 'react-redux';
-import {Link} from 'react-router-dom'
+import { useDispatch} from 'react-redux';
+import {Link,useHistory} from 'react-router-dom'
+import {SaveStateLocalStorage} from '../../../helpers/localStorage.js'
 import {newGame} from '../../../redux/actions/gameActions'
-
 import './createGame.css'
 
 const CreateGame  = () =>{
 
-const [difficulty,setDifficulty] = useState({difficulty:"Medio",columns:14,row:14,mines:40})
+const defaultGame={difficulty:"Medio",columns:14,row:14,mines:40}
+
+const [game,setGame] = useState(defaultGame)
+const [error,setError] = useState()
 const dispatch = useDispatch()
+const history = useHistory();
+
+function validation(target){
+ 
+    let error={}
+    switch(target.name){
+        case "row":
+            if(target.value<1){
+                error[target.name] = `Las filas deben ser mayor a 1`
+            }
+            if(target.value>100){
+                error[target.name] = `Las filas deben ser menor a 100`
+            }
+            return error
+        case "column":
+            if(target.value<1){
+                error[target.name] = `Las columnas deben ser mayor a 1`
+            }
+            if(target.value>100){
+                error[target.name] = `Las columnas deben ser menor a 100`
+            }
+            return error
+        case "mines":
+            let minMines= Math.ceil(game.columns*game.row*0.1)
+            let maxMines= Math.ceil(game.columns*game.row)
+
+            if(target.value<minMines){
+                error[target.name] = `La cantidad minima de minas para la dimension de su tablero es ${minMines}`
+            }
+            if(target.value>maxMines){
+                error[target.name] = `La cantidad maxima de minas para la dimension de su tablero es ${maxMines}`
+            }
+            return error
+    }
+}
 
 function changeDifficulty(event){
     switch(event.target.value){
         case 'Facil':{
-           return setDifficulty({difficulty:"Facil",columns:8,row:8,mines:10})
+           return setGame({difficulty:"Facil",columns:8,row:8,mines:12})
         }
         case 'Medio':{
-           return setDifficulty({difficulty:"Medio",columns:14,row:14,mines:40})
+           return setGame({difficulty:"Medio",columns:14,row:14,mines:40})
         }
         case 'Dificil':{
-           return setDifficulty({difficulty:"Dificil",columns:30,row:15,mines:90})
+           return setGame({difficulty:"Dificil",columns:30,row:15,mines:90})
         }
         case 'Personalizado':{
-           return setDifficulty({...difficulty, difficulty:"Personalizado"})
+           return setGame({...game, difficulty:"Personalizado"})
         }
     }
 }
-
 function handleChange(event){
-    setDifficulty(
-       { ...difficulty,
+    setError(validation(event.target))
+    setGame(
+       { ...game,
         [event.target.name]: event.target.value,
     })
 }
-
-
-function createGame(){
-    dispatch(newGame(difficulty))
+function createGame(event){
+    if(error)return
+    event.preventDefault()
+    SaveStateLocalStorage("game",game)
+    dispatch(newGame(game))
+    history.push("/game")
 }
+
 return(
-        
-            <div className="CreateGame">
-                <h2 className="CreateGame-title">Elija una dificultad</h2>
+            <div className=" CreateGame">
+                <h2 className="modal-title-small CreateGame-title">Elija una dificultad</h2>
                 <div className="CreateGame-difficulty">
                     <select className="CreateGame-difficulty-dropdown" name="cars" id="cars" onChange={changeDifficulty}>
                         <option value="Facil">Facil</option>
@@ -52,37 +91,63 @@ return(
                         <option value="Personalizado">Personalizado</option>
                     </select>
                 </div>
-                <form className="CreateGame-form">
-                    <label className="CreateGame-form-label" htmlFor="row">
+                <form className="modal-body CreateGame-form" onSubmit={(event)=>createGame(event)}>
+                    <label className="CreateGame-form-label">
                         Filas
-                        {difficulty.difficulty==="Personalizado"?
-                        <input className="CreateGame-form-input" id="row" name="row" value={difficulty.row} onChange={difficulty.difficulty==='Personalizado'?handleChange:null}/>
+                        {game.difficulty==="Personalizado"?
+                        <input  
+                            className="CreateGame-form-input" 
+                            min={1}  
+                            name="row"
+                            value={game.row} 
+                            type="number"  
+                            onChange={handleChange}/>
                         :
-                        <input className="CreateGame-form-input" disabled id="row" name="row"value={difficulty.row}/>
+                        <input 
+                            className="CreateGame-form-input"  
+                            disabled  
+                            name="row"
+                            value={game.row}/>
                         }
                     </label>
-                    <label  className="CreateGame-form-label" htmlFor="columns">
+                        {error && error.row && <p className="message-error">{error.row}</p>}
+                    <label  className="CreateGame-form-label">
                         Columnas
-                        {difficulty.difficulty==="Personalizado"?
-                        <input className="CreateGame-form-input" id="columns" name="columns"value={difficulty.columns} onChange={difficulty.difficulty==='Personalizado'?handleChange:null}/>
+                        {game.difficulty==="Personalizado"?
+                        <input  
+                            className="CreateGame-form-input"  
+                            min={1}  
+                            name="columns"
+                            value={game.columns} 
+                            type="number"  
+                            onChange={handleChange}/>
                         :
-                        <input className="CreateGame-form-input" disabled id="columns" name="columns"value={difficulty.columns}/>
+                        <input  
+                            className="CreateGame-form-input"  
+                            disabled  
+                            name="columns"
+                            value={game.columns}/>
                         }
                     </label>
-                    <label  className="CreateGame-form-label" htmlFor="mines">
+                        {error && error.columns && <p className="message-error">{error.columns}</p>}
+                    <label  className="CreateGame-form-label">
                         Minas
-                        <input className="CreateGame-form-input" 
-                                name="mines"
-                                disabled 
-                                id="mines" 
-                                value={difficulty.difficulty==="Personalizado"?Math.ceil(difficulty.columns*difficulty.row*0.2):difficulty.mines}/>
+                        { game.difficulty==="Personalizado"?
+                            <input className="CreateGame-form-input" 
+                            name="mines"
+                            onChange={handleChange}
+                            value={game.mines}/>
+                            :
+                            <input className="CreateGame-form-input" 
+                            name="mines"
+                            disabled 
+                            disabled
+                            value={game.mines}/>
+                        }
                     </label>
+                        {error && error.mines && <p className="message-error" >{error.mines}</p>}
                     <div className="CreateGame-button">
-                        <Link to="/game" className="linkCreateGame">
-                            <Button buttonType="primary" onClick={createGame}>
-                                    Empezar !
-                            </Button>
-                        </Link>
+                        <Button buttonType="primary">Comenzar !</Button>
                     </div>
                 </form>  
             </div>

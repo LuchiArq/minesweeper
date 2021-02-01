@@ -1,0 +1,78 @@
+@import '../../assets/_master.css';
+.savedGames {
+  width: 90%;
+  border-radius: 10px;
+  padding: 15px;
+  color: #FDF0D5;
+  background-color: var(--background_3);
+  display: grid;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: .3fr .3fr auto;
+  gap: 0px 0px;
+  grid-template-areas:
+    "title title title title"
+    "header header header header"
+    "savedGame savedGame savedGame savedGame";
+}
+
+.savedGames-title { 
+    text-align: center;
+    grid-area: title;
+ }
+ .savedGame-header{ 
+     margin-top: 10px;
+     display: flex;
+     justify-content: space-around;
+     grid-area: header; 
+    }
+  
+  .savedGame-header-col{
+    width: 70px;
+    text-align: center;
+  }
+
+  .savedGame-games{
+    grid-area: savedGame;
+  }
+
+  .savedGame-games-game{
+    display: flex;
+    background-color: #3e2042;
+    margin: 5px 0px;
+    border-radius: 10px;
+    padding: 7px;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .savedGame-games-button button{
+    padding: 0px 5px;
+    border-radius: 5px; 
+    font-weight: 600;
+    font-size: .8em;
+    height: 30px;
+  }
+ .savedGame-games-data{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 70px;
+   background-color: var(--cream);
+   border-radius: 5px;
+   color: black;
+   font-weight: 600;
+   height: 30px;
+ }
+
+.savedGame-games-reloj{
+  width: 25px;
+  height: 25px;
+}
+ 
+
+@media (max-width: 1070px){
+  .savedGame-games-data, .savedGame-header-col{
+    width: 55px;
+  }
+}

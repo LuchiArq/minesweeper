@@ -4,6 +4,7 @@ import './rules.css'
 const Rules = ({closeModal}) =>{
     return(
         <div className="rules">
+            <h2 className="modal-title-big">Reglas</h2>
             <div className="rules-cointainer-text">
                 <p className="rules-text">
                     • El objetivo del juego es despejar un campo de minas sin detonar ninguna.
@@ -19,9 +20,9 @@ const Rules = ({closeModal}) =>{
                 </p>
                 <p className="rules-text">
                     • Se puede poner una marca (boton secundario) en las casillas que el jugador piensa que hay minas para ayudar a descubrir las que están cerca.
-                </p>  
-                <Button onClick={closeModal} buttonType='primary'>Continuar</Button>
+                </p> 
             </div>
+                    <Button onClick={closeModal} buttonType='primary'>Continuar</Button>
         </div>
     )
 }

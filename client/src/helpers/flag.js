@@ -6,19 +6,3 @@ export const plantFlag = (table,x,y) =>{
     return table
 }
 
-
-
-export const getCellFlag = (game)=>{
-    let table = game.table
-    let flagArray = []
-    table.map(row=>{
-        return(
-            row.map(cell=>{
-                if(cell.flag===true){
-                    flagArray.push({x:cell.x,y:cell.y})
-                }
-            })
-        )
-    })
-    return flagArray
-}

@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import {loginUser} from '../../../redux/actions/userActions'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
 import Button from '../../Button/Button'
 import './login.css'
@@ -22,9 +22,9 @@ const handlerOnchange=(e)=>{
     return(
         <div className="login">
             <div className="login-texto">
-                <h2>Ingresar</h2>
+                <h2 className="modal-title-small">Ingresar</h2>
             </div>
-            <form className="login-form" onSubmit={
+            <form className="modal-body login-form" onSubmit={
                 (e=>{
                     e.preventDefault();
                     dispatch(loginUser(login))

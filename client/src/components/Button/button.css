@@ -1,4 +1,10 @@
+@import '../../assets/_master.css';
+
 .button{
+    color:var(--cream);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     border-radius: 10px;
     font-size: 1.3em;
@@ -6,8 +12,11 @@
     cursor: pointer;
     outline: none;
     border:none;
-    box-shadow: 0px 4px 0px 0px #4c226c;
+    height: 40px;
+    box-shadow: 0px 3px 0px 0px #501732;
     transition: all cubic-bezier(0.215, 0.610, 0.355, 1) .4s;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .button:active{
@@ -16,29 +25,19 @@
 }
 
 .button-primary{
-    height: 40px;
-    width: auto;
-    padding-left: 25px;
-    padding-right: 25px;
-    background-color: #FDF0D5;
-    border: solid 4px #9F2771;
-    color: #9F2771;
+    border: solid 4px #441738;
+    background-color: #ad3450;
 }
 
 .button-register{
     font-size: 1em;
-    height: 40px;
-    width: 140px;
-    background-color: #9F2771;
-    color: white
+    background-color: #ad3450;
+    
 }
 
 .button-login{
     font-size: 1em;
-    height: 40px;
-    width: 140px;
     background-color:transparent;
-    border: solid 4px #9F2771;
-    color: white;
-
+    border: solid 4px #ad3450;
+    
 }

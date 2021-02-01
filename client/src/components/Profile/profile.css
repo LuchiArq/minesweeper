@@ -1,3 +1,5 @@
+@import '../../assets/_master.css';
+
 .profile{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 85%;
@@ -13,8 +15,8 @@
 .profile-container {
     height: 100%;
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    grid-template-rows: .3fr 1fr .3fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .2fr 1.2fr .2fr;
     gap: 0px 0px;
     grid-template-areas:
       "header header"
@@ -22,81 +24,61 @@
       ". jugar";
   }
 .profile-container-header{
-      grid-area:buttonGroup;
+      color:white;
+      grid-area:header;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
   }
 
 .profile-button-jugar{ 
+    grid-area: jugar;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    grid-area: jugar;
 }
-
+.profile-name{
+    display: flex;
+}
+.iconProfile{
+    margin: 0px 10px ;
+    height: 40px;
+    width: 40px;
+}
 .profile-container-savedGame{
-    
+    display:grid;
+    place-items: center;
+    grid-area: savedGame;
 }
 
-@media (max-width: 1050px) { 
-    .home{
-        width: 80%;
-    }
-    .home-container{
+
+@media (max-width: 900px){
+    .profile-container {
         height: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: .2fr 1fr .3fr .2fr;
+        grid-template-columns: 1.6fr 1fr;
+        grid-template-rows: .2fr 1.2fr .2fr;
         gap: 0px 0px;
         grid-template-areas:
-          ". buttonGroup"
-          "welcome welcome"
-          "jugar ."
-          "aclaracion .";
-    }
-    .home-container-welcome{
-        grid-area: welcome; 
-        width: 75%;
-    }
-    .home-title{
-        font-size: calc(2.5em + 1vw);
-    }
-    .home-text{
-        font-size: 17px;
-    }
+          "header header"
+          "savedGame ."
+          ". jugar";
+      }
 }
 
-@media (max-width: 700px) { 
-    .home{
-        width: 80%;
-    }
-    .home-title{
-        font-size: calc(2.5em + 1vw);
-    }
-    .home-text{
-        width: 80%;
-        font-size: 14px;
-    }
-    .home-container{
-        height:  100%;
-        display:grid;
+@media (max-width: 720px) {
+    .profile{
+        width: 85%;
+    } 
+    .profile-container {
+        height: 100%;
+        display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: .4fr 1fr .8fr .1fr;
+        grid-template-rows: .2fr 1.2fr .2fr;
+        gap: 0px 0px;
         grid-template-areas:
-        "buttonGroup"
-        "welcome"
-        "jugar"
-        "aclaracion";
-    }
-    .home-container-welcome{
-        grid-area: welcome; 
-        width: 100%;
-    }
-    .home-button-jugar{ 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        grid-area: jugar;
-       }
-}
+          "header "
+          "savedGame"
+          "jugar";
+      }
 
+    }

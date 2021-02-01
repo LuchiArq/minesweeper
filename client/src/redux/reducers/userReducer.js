@@ -2,7 +2,8 @@ import {REGISTER,LOGIN,MY_PROFILE} from '../actions/userActions.js'
 
 const initalState={
     token:"",
-    usuario:"",
+    user:"Invitado",
+    savedGames:[]
 }
 
 export default (state = initalState, action) =>{
