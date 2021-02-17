@@ -1,5 +1,4 @@
 const createTable = (row,columns,mines) => {
-    console.log("ASDASDASD")
      //se crea el tablero
     let minesLocation=[]
     let table = new Array(parseInt(row))

@@ -11,6 +11,7 @@ export const GET_RECORDS = "GET_RECORDS";
 export const GET_SAVED_GAMES = "GET_SAVED_GAMES"
 export const NEW_RECORD="NEW_RECORD";
 export const POST_SAVED_GAMES="POST_SAVED_GAMES";
+export const DATA_USER="DATA_USER"
 
 
 export function Logout(){
@@ -20,35 +21,22 @@ export function Logout(){
     }
 }
 
-export function AllDataUser(token){
-    return function(dispatch){
-        
-        dispatch(request())
-        axios.get('http://localhost:3000/dev/dataUser',{
-            headers:{
-                Authorization:LoadStateLocalStorage("dataUser").token
-            }
-        })
-        .then((user)=>{
-            const loginUser = user.data
-            SaveStateLocalStorage("dataUser",loginUser)
-            dispatch(succesLogin(loginUser)) 
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+export function AllDataUser(datauser){
+    return{
+        type:DATA_USER,
+        payload:datauser
+   
     }
 }
 
 export function getSavedGames(){
     return function(dispatch){
         dispatch(request())
-        axios.get("http://localhost:3000/dev/table/AllTables",{
+        axios.get("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/AllTables",{
             headers:{
                 Authorization:LoadStateLocalStorage("dataUser").token
             }})
         .then((resp)=>{
-            console.log("RESPUESTA DE RUTA ALL TABLES: ",resp)
            let games = resp.data 
             dispatch(successGetSavedGame(games))
         })
@@ -62,7 +50,7 @@ export function getSavedGames(){
 export function getRecords(){
     return function(dispatch){
         dispatch(request())
-        axios.get("http://localhost:3000/dev/scores",{
+        axios.get("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/scores",{
             headers:{
                 Authorization:LoadStateLocalStorage("dataUser").token
             }})
@@ -77,9 +65,9 @@ export function getRecords(){
 export function register(newUser){
     return function(dispatch){
         dispatch(request())
-        axios.post('http://localhost:3000/dev/auth/register',newUser)
+        axios.post('https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/auth/register',newUser)
         .then((user)=>{
-            console.log(user.data)
+
            const registerUser = user.data
            registerUser.statusCode===500?
            dispatch(error(registerUser.message)):
@@ -92,11 +80,10 @@ export function register(newUser){
 export function login(user){
     return function(dispatch){
         dispatch(request())
-        axios.post('http://localhost:3000/dev/auth/login',user)
+        axios.post('https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/auth/login',user)
         .then((user)=>{
             const loginUser = user.data
             SaveStateLocalStorage("dataUser",loginUser)
-            console.log("USUARIO ACTION USER LOGIN",user.data)
             loginUser.statusCode===500 ?
             dispatch(error(loginUser.message)):
             dispatch(succesLogin(loginUser)) 
@@ -104,16 +91,6 @@ export function login(user){
         .catch(err=>{
             console.log("ESTE ES EL ERROR ",err)
             dispatch(error("El usuario no existe"))
-        })
-    }
-}
-
-export function myProfile(user){
-    return function(dispatch){
-        
-        axios.post('http://localhost:3000/dev/user/myProfile',user)
-        .then((user)=>{
-            
         })
     }
 }

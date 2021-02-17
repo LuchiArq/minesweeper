@@ -11,13 +11,12 @@ import {SaveStateLocalStorage,LoadStateLocalStorage} from './helpers/localStorag
 
 function App() {
 
-  let token = LoadStateLocalStorage('dataUser') && LoadStateLocalStorage('dataUser').token
+  let datauser = LoadStateLocalStorage('dataUser') && LoadStateLocalStorage('dataUser')
    const dispatch = useDispatch()
   useEffect(()=>{
-    token && dispatch(AllDataUser(token))
+    datauser && dispatch(AllDataUser(datauser))
   },[])
 
-  console.log("Datos en el localStorage ",token)
   return ( 
     <Router>
         <Route exact path="/" component={Home}/> 

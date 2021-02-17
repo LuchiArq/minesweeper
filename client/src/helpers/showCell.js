@@ -10,7 +10,6 @@ const showCell = (game,y,x) =>{
 
 
 function lose(table,mines){
-    console.log("CUALES SON LAS MINAS ",mines)
     for(let i=0;i<mines.length;i++){
         table[mines[i].y][mines[i].x].show=true
     }

@@ -20,14 +20,12 @@ module.exports.load = async (id,userId) =>{
 }
 
 module.exports.update = async (body) =>{
-    console.log("UPDATE TABLA ",body)
     const table = await Table.findByIdAndUpdate(body.id,{
         game: body.game,
         score:body.score,
         updatedAt : new Date(),
         flag:body.flag,
     },{new: true})
-    console.log("ESTA ES LA TABLa ",table)
     return table
 }
 

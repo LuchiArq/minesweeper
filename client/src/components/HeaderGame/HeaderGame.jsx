@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ReactComponent as Flag } from '../../assets/flag.svg';
 import { ReactComponent as SaveIcon } from '../../assets/saveIcon.svg';
 import { ReactComponent as Back } from '../../assets/back.svg';
-import {LoadStateLocalStorage} from '../../helpers/localStorage'
+import {LoadStateLocalStorage,SaveStateLocalStorage} from '../../helpers/localStorage'
 import './headerGame.css'
 import {Link} from 'react-router-dom'
 import { useDispatch,useSelector} from 'react-redux';
@@ -34,14 +34,17 @@ const saveNewGame = () =>{
         game:JSON.stringify(game),
         flag:JSON.stringify(flag)
     }
+    SaveStateLocalStorage("game",{row:game.row,
+                                columns:game.columns,
+                                difficulty:difficulty,
+                                mines:game.minesLocation.length})
     setLoading(true)
     if(!id){
-        axios.post("http://localhost:3000/dev/table/createTable",obj, {
+        axios.post("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/createTable",obj, {
             headers:{
             Authorization:LoadStateLocalStorage("dataUser").token
         }})
         .then(res=>{
-            console.log("ESTA ES LA RESPUESTA ",res)
             setLoading(false)
             setContinue(true)
             dispatch(getSavedGames())
@@ -52,13 +55,11 @@ const saveNewGame = () =>{
         })
     }
     if(id){
-        console.log("ESTE ES EL OBJETO DEL PUT ",obj)
-        axios.put("http://localhost:3000/dev/table/saveTable",obj, {
+        axios.put("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/saveTable",obj, {
             headers:{
             Authorization:LoadStateLocalStorage("dataUser").token
         }})
         .then(res=>{
-            console.log("ESTA ES LA RESPUESTA ",res)
             setLoading(false)
             setContinue(true)
             dispatch(getSavedGames())
