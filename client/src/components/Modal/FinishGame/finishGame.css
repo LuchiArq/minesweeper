@@ -25,9 +25,19 @@
     justify-content: space-around;
       grid-area: button; 
     }
-
+.newRecord{
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+font-size: 1.5em;
+}
+.newRecord-icon{
+    height: 30px;
+    width: 30px;
+}
 .finish-title{
-
+    text-align: center;
     grid-area: title;
 }
 
@@ -35,7 +45,7 @@
     color: #B0363E;
 }
 
-.finish-title-winn{
+.finish-title-win{
     color: #139374;
 }
 

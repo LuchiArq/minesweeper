@@ -16,7 +16,7 @@
     height: 100%;
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    grid-template-rows: .3fr 1fr .3fr .2fr;
+    grid-template-rows: .3fr 1fr .3fr .1fr;
     gap: 0px 0px;
     grid-template-areas:
       ". buttonGroup"
@@ -35,6 +35,9 @@
     justify-content: flex-start;
     align-items: flex-end;
     grid-area: jugar;
+}
+.home-button-jugar button{
+    width: 150px ;
 }
 
 .home-text-aclaracion{

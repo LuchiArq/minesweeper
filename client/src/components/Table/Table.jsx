@@ -13,30 +13,27 @@ import Modal from '../Modal/Modal'
 import './table.css'
 
 const Table =() => {
+
 const dispatch = useDispatch()
 //console.log("Tamaño de pantalla",window.screen)
 
-const {flag,state} = useSelector((store)=>store.gameReducer) 
+const {flag,state,time,loadGame} = useSelector((store)=>store.gameReducer) 
 const {row,columns,mines}=LoadStateLocalStorage("game")
 const [game,setgame] = useState()
 const [modalFinishGame, setModaFinishGame] = useState(false)
 
+console.log("Datos del juego ",loadGame)
+
 useEffect(()=>{
-    dispatch(newGame(LoadStateLocalStorage("game")))
-   !game && setgame(createTable(row,columns,mines)) 
-},[])   
+    loadGame && setgame(loadGame)
+    !loadGame && setgame(createTable(row,columns,mines)) 
+    !loadGame && dispatch(newGame(LoadStateLocalStorage("game")))
+},[]) 
 
 
-const OpenModalFinishGame =() =>{
-    setModaFinishGame(!modalFinishGame)
-}
-
-const SaveGame =(table)=>{
-    setgame({...game,
-        table:table})
-}
-
+// Funcion que genera otro tablero si la primera celda descuebierda posee una mina
 const firstClick = (x,y)=>{
+    if(loadGame) return
     let newgame = createTable(row,columns,mines)
     if(newgame.table[y][x].value==="x"){
        return firstClick(x,y)
@@ -45,10 +42,19 @@ const firstClick = (x,y)=>{
    dispatch(setStateGame("in progress"))
    setgame({...game,
             table:newtable.table,
-            minesLocation:newgame.minesLocation})
-    
-   return 
+            minesLocation:newgame.minesLocation}) 
 }
+// en caso de perder o ganar se abre el modal
+const OpenModalFinishGame =() =>{
+    setModaFinishGame(!modalFinishGame)
+}
+
+const Update =(table)=>{
+    setgame({...game,
+        table:table})
+}
+
+//crea otro juego al darle a los botones "reintentar" o "jugar de nuevo"
 
 const again=()=>{
     dispatch(saveTime(0))
@@ -58,12 +64,14 @@ const again=()=>{
     setgame(createTable(row,columns,mines))
 }
 
+//obtiene y actualiza las posiciones de las banderas en el table 
 const getFlag = (event,x,y)=>{
     event.preventDefault()
     let newTable = plantFlag(game.table,y,x)
-    SaveGame(newTable)
+    Update(newTable)
     }
 
+// funcion que actualiza el juego al ir descubriendo el tablero
 const UpdateGame = (x,y) =>{
     let newTable = showCell(game,y,x)
 
@@ -73,28 +81,30 @@ const UpdateGame = (x,y) =>{
         return
     }
     
-    SaveGame(newTable.table)
+    Update(newTable.table)
         
     if(countCellsHidden(game).length === game.minesLocation.length){
-        dispatch(setStateGame("winn"))
+        dispatch(setStateGame("win"))
+        console.log("Este es el tiempo",time)
         OpenModalFinishGame()
         return
     }
 } 
-    return (
 
+    return (
     <div className="mainContainerGame slideIn">
         <Modal closeModal={OpenModalFinishGame} active={modalFinishGame}>
             <FinishGame 
                 modalType={state} 
-                title={state==="winn"? "Ganaste":"Perdiste"} 
-                textButton={state==="winn"? "Jugar de Nuevo":"Reintentar"}
+                title={state==="win"? "Ganaste":"Perdiste"} 
+                textButton={state==="win"? "Jugar de Nuevo":"Reintentar"}
                 newGame={again}
+                newRecord={""}
                 />
         </Modal> 
         <div className="game-container">
             <div className="game-container-headerGame">
-                <HeaderGame again={again} flag={flag} mines={mines} />
+                <HeaderGame game={game} again={again} flag={flag} mines={mines} />
             </div>
             <div className="game-container-table">
                 {     

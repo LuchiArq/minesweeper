@@ -20,17 +20,17 @@ function close(){
     setTimeout(()=>{
         setCloseBackground("")
         setCloseModalContent("")
+        pause && pause()
         closeModal()
         },300)
 }
 
 return ReactDom.createPortal(
     <div>
-        
-        <div tabIndex={-1} className={`fondo openFondo ${closeModalBackground ? closeModalBackground :"" }`} onClick={()=>{
-            close()
-            pause && pause()}}
-        ></div>
+        <div tabIndex={-1} 
+            className={`fondo openFondo ${closeModalBackground ? closeModalBackground :"" }`} 
+            onClick={close}>
+        </div>
         <div  className="modal-container">
             <div  className={`modal slideIn ${closeModalContent ? closeModalContent : ""}`}>
                 {children}
@@ -38,7 +38,7 @@ return ReactDom.createPortal(
         </div>
     </div>,
      
-     document.getElementById('portal')
+     document.getElementById('root')
 )}
 
 export default Modal

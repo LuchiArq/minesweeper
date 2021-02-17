@@ -52,10 +52,11 @@ return (
     <div className={`celda ${celda.show ? 'celda-revealed':""}`} 
     style={{color: setColor(celda)}}
     onClick={()=>{
-            if(celda.flag||stateGame==="winn"||stateGame==="loss"){return}
+            if(celda.flag||stateGame==="win"||stateGame==="loss"){return}
+            if(stateGame==="load"){
+                dispatch(setStateGame("in progress"))
+            }
             UpdateGame(celda.x,celda.y)
-            console.log(celda)
-
          }}
     onContextMenu={(e)=>{
         if(!celda.show){

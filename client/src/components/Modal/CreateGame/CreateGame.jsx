@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import Button from '../../Button/Button'
 import { useDispatch} from 'react-redux';
+import {Formik} from 'formik';
 import {Link,useHistory} from 'react-router-dom'
 import {SaveStateLocalStorage} from '../../../helpers/localStorage.js'
 import {newGame} from '../../../redux/actions/gameActions'
@@ -11,76 +12,35 @@ const CreateGame  = () =>{
 const defaultGame={difficulty:"Medio",columns:14,row:14,mines:40}
 
 const [game,setGame] = useState(defaultGame)
-const [error,setError] = useState()
 const dispatch = useDispatch()
 const history = useHistory();
-
-function validation(target){
- 
-    let error={}
-    switch(target.name){
-        case "row":
-            if(target.value<1){
-                error[target.name] = `Las filas deben ser mayor a 1`
-            }
-            if(target.value>100){
-                error[target.name] = `Las filas deben ser menor a 100`
-            }
-            return error
-        case "column":
-            if(target.value<1){
-                error[target.name] = `Las columnas deben ser mayor a 1`
-            }
-            if(target.value>100){
-                error[target.name] = `Las columnas deben ser menor a 100`
-            }
-            return error
-        case "mines":
-            let minMines= Math.ceil(game.columns*game.row*0.1)
-            let maxMines= Math.ceil(game.columns*game.row)
-
-            if(target.value<minMines){
-                error[target.name] = `La cantidad minima de minas para la dimension de su tablero es ${minMines}`
-            }
-            if(target.value>maxMines){
-                error[target.name] = `La cantidad maxima de minas para la dimension de su tablero es ${maxMines}`
-            }
-            return error
-    }
-}
 
 function changeDifficulty(event){
     switch(event.target.value){
         case 'Facil':{
-           return setGame({difficulty:"Facil",columns:8,row:8,mines:12})
+           return setGame({difficulty:"Facil",columns:8,row:8,mines:10})
         }
         case 'Medio':{
            return setGame({difficulty:"Medio",columns:14,row:14,mines:40})
         }
         case 'Dificil':{
-           return setGame({difficulty:"Dificil",columns:30,row:15,mines:90})
+           return setGame({difficulty:"Dificil",columns:30,row:14,mines:90})
         }
         case 'Personalizado':{
            return setGame({...game, difficulty:"Personalizado"})
         }
     }
 }
-function handleChange(event){
-    setError(validation(event.target))
-    setGame(
-       { ...game,
-        [event.target.name]: event.target.value,
-    })
-}
-function createGame(event){
-    if(error)return
-    event.preventDefault()
+
+function createGame(game){
     SaveStateLocalStorage("game",game)
     dispatch(newGame(game))
     history.push("/game")
 }
 
 return(
+        <>
+           
             <div className=" CreateGame">
                 <h2 className="modal-title-small CreateGame-title">Elija una dificultad</h2>
                 <div className="CreateGame-difficulty">
@@ -91,15 +51,57 @@ return(
                         <option value="Personalizado">Personalizado</option>
                     </select>
                 </div>
-                <form className="modal-body CreateGame-form" onSubmit={(event)=>createGame(event)}>
+                <Formik 
+                    initialValues={game}
+                    onSubmit={(values)=>{
+                        game.difficulty==="Personalizado"?createGame({...values,difficulty:"Personalizado"}):createGame(game)
+                    }}
+                    validate={(values)=>{
+                        const errors={}
+
+                        //errores filas 
+                        if(!values.row){
+                            errors.row="La cantidad de filas no puede ser 0"
+                        }else if(values.row<5){
+                            errors.row="La cantidad de filas debe ser mayor o igual a 5"
+                        }else if(values.row>34){
+                            errors.row="La cantidad de filas debe ser menor o igual a 34"
+                        }
+
+                        //errores columnas 
+                        if(!values.columns){
+                            errors.columns="La cantidad de filas no puede ser 0"
+                        }else if(values.columns<5){
+                            errors.columns="La cantidad de columnas debe ser mayor o igual a 5"
+                        }else if(values.columns>34){
+                            errors.columns="La cantidad de columnas debe ser menor o igual a 34"
+
+                        }
+
+                        //errores cantidad de minas
+                        if(!values.mines){
+                            errors.mines="La cantidad de minas no puede ser 0"
+
+                        }else if(values.mines<5){
+                            errors.mines="La cantidad de minas debe ser mayor o igual a 5"
+                        }else if(values.row>=5 && values.columns>=5 && values.mines>values.row*values.columns-10){
+                            errors.mines=`La cantidad de minas no puede ser mayor a ${values.row*values.columns-10}`
+                        }
+                    
+                        return errors;
+                    }}
+                    
+                >
+                {
+                    ({values, handleChange,handleSubmit, errors, isSubmitting})=><form className="modal-body CreateGame-form" onSubmit={handleSubmit}>
                     <label className="CreateGame-form-label">
                         Filas
                         {game.difficulty==="Personalizado"?
                         <input  
                             className="CreateGame-form-input" 
-                            min={1}  
+                            min={5}
+                            max={34}  
                             name="row"
-                            value={game.row} 
                             type="number"  
                             onChange={handleChange}/>
                         :
@@ -110,15 +112,15 @@ return(
                             value={game.row}/>
                         }
                     </label>
-                        {error && error.row && <p className="message-error">{error.row}</p>}
+                        {errors.row ? <small className="message-error">{errors.row}</small>: ''}
                     <label  className="CreateGame-form-label">
                         Columnas
                         {game.difficulty==="Personalizado"?
                         <input  
                             className="CreateGame-form-input"  
-                            min={1}  
+                            min={5}
+                            max={34}  
                             name="columns"
-                            value={game.columns} 
                             type="number"  
                             onChange={handleChange}/>
                         :
@@ -129,28 +131,36 @@ return(
                             value={game.columns}/>
                         }
                     </label>
-                        {error && error.columns && <p className="message-error">{error.columns}</p>}
+                        {errors.columns ? <small className="message-error">{errors.columns}</small>: ''}
+
                     <label  className="CreateGame-form-label">
                         Minas
                         { game.difficulty==="Personalizado"?
                             <input className="CreateGame-form-input" 
+                            min={5}
+                            max={values.row*values.columns-10}
                             name="mines"
-                            onChange={handleChange}
-                            value={game.mines}/>
+                            type="number"
+                            onChange={handleChange}/>
                             :
                             <input className="CreateGame-form-input" 
-                            name="mines"
-                            disabled 
+                            name="mines" 
                             disabled
                             value={game.mines}/>
                         }
                     </label>
-                        {error && error.mines && <p className="message-error" >{error.mines}</p>}
+                        {errors.mines ? <small className="message-error">{errors.mines}</small>: ''}
                     <div className="CreateGame-button">
                         <Button buttonType="primary">Comenzar !</Button>
                     </div>
                 </form>  
+  
+                } 
+            </Formik>
+                
             </div>
+        
+        </>
 )}
 
 export default CreateGame

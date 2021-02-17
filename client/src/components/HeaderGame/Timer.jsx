@@ -19,16 +19,22 @@ function saveTimeGame(seconds){
 
 useEffect(() => {
     if(state==="") return setSeconds(0)
+    if(state==="load")  {
+        setSeconds(time)
+        saveTimeGame(0)
+        return
+    }
     if(state==="in progress"){
         interval = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
-           
+            setSeconds(seconds => seconds + 1)
         }, 1000);
     }
-    if(state==="winn"||state==="loss"){
+    if(state==="win"||state==="loss"){
         return saveTimeGame(seconds)
     }
-    saveTimeGame(seconds)
+    if(!state !=="load"){
+        saveTimeGame(seconds)   
+    }
     return () => clearInterval(interval);
     },[state]);
     

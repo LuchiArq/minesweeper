@@ -1,12 +1,18 @@
 @import './assets/_master.css';
 
-body,html,#root{
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
-  min-width: 100vw;
+body,html{
   display: grid;
   place-items: center;
+  height:100%;
+  width: 100%;
+}
+
+#root{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 *{
   margin: 0;
@@ -16,10 +22,16 @@ a{
   text-decoration: none;
   color: #000;
 }
-
 body{
   background-image: url(assets/background.svg);
-  background-size: cover;
+  background-size: auto auto;
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 400px){
+  body,html,#root{
+    max-height: max-content;
+    min-height: 100%;
+  }
 }

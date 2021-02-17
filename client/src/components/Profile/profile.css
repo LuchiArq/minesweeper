@@ -4,7 +4,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 85%;
     width: 65%;
-    background-image: url(../../assets/homeBackground.svg);
+    background-image: url(../../assets/profileBackground.svg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -15,13 +15,13 @@
 .profile-container {
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: .2fr 1.2fr .2fr;
     gap: 0px 0px;
     grid-template-areas:
-      "header header"
-      "savedGame ."
-      ". jugar";
+      "header"
+      "savedGame "
+      "buttons";
   }
 .profile-container-header{
       color:white;
@@ -30,14 +30,15 @@
       justify-content: space-between;
   }
 
-.profile-button-jugar{ 
-    grid-area: jugar;
+.profile-buttons{ 
+    grid-area: buttons;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: flex-end;
 }
 .profile-name{
     display: flex;
+    color :var(--cream)
 }
 .iconProfile{
     margin: 0px 10px ;
@@ -45,23 +46,27 @@
     width: 40px;
 }
 .profile-container-savedGame{
-    display:grid;
-    place-items: center;
+    width: 100%;
+    height: 100%;
     grid-area: savedGame;
 }
 
 
-@media (max-width: 900px){
+@media (max-width: 1050px){
+    .profile{
+        width: 80%;
+    }
     .profile-container {
+        
         height: 100%;
         display: grid;
-        grid-template-columns: 1.6fr 1fr;
+        grid-template-columns: 1fr;
         grid-template-rows: .2fr 1.2fr .2fr;
         gap: 0px 0px;
         grid-template-areas:
-          "header header"
-          "savedGame ."
-          ". jugar";
+          "header"
+          "savedGame"
+          "buttons";
       }
 }
 
@@ -78,7 +83,7 @@
         grid-template-areas:
           "header "
           "savedGame"
-          "jugar";
+          "buttons";
       }
 
     }

@@ -8,6 +8,11 @@
     --dark:#3A3335;
 }
 
+.box-container-center{
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
 
 .modal-title-big{
     margin-bottom: 20px;
