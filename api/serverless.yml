@@ -20,61 +20,62 @@ functions:
     events:
       - http:
           path: auth/login
-          method: post
           cors: true
+          method: post
   
   register:
     handler: auth/authHandler.register
     events:
       - http:
           path: auth/register
+          cors: true
           method: post
-          cors: true
 
-  profile:
-    handler: user/UserHandler.myProfile
-    events:
-      - http:
-          path:  user/myProfile
-          method: get
-          cors: true
 
   createTable:
     handler: table/TableHandler.createTable
     events:
       - http:
-          path:  table/createTable
           method: post
           cors: true
+          path:  table/createTable
 
   saveTable:
     handler: table/TableHandler.saveTable
     events:
       - http:
-          path:  table/saveTable
           method: put
           cors: true
+          path: table/saveTable
 
   AllTables:
     handler: table/TableHandler.AllTables
     events:
       - http:
-          path:  table/AllTables
           method: get
           cors: true
+          path:  table/AllTables
 
   loadTable:
     handler: table/TableHandler.loadTable
     events:
       - http:
-          path:  table/loadTable/{_id}
           method: get
           cors: true
+          path:  table/loadTable/{_id}
 
   scores:
     handler: table/TableHandler.scores
     events:
       - http:
           path: scores
+          method: get
+          cors: true
+
+  allDataUser:
+    handler: user/UserHandler.dataUser
+    events:
+      - http:
+          path: dataUser
           method: get
           cors: true

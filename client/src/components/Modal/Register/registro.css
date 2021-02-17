@@ -43,6 +43,8 @@
     margin: 5px;
 }
 .register-submit{
+    display: grid;
+    place-items: center;
     font-size: 1.1em;
     background: none;
     border: none;

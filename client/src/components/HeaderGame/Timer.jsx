@@ -2,24 +2,41 @@ import React,{useState,useEffect} from 'react'
 import './timer.css'
 import { ReactComponent as Reloj } from '../../assets/reloj.svg';
 import { useDispatch, useSelector } from 'react-redux';
+import {saveTime,setStateGame} from '../../redux/actions/gameActions'
 
-const Timer = ({time,play})=>{
+const Timer = ()=>{
 
-const [seconds, setSeconds] = useState(0)
+const [seconds, setSeconds] = useState(0.5)
     
-const {pause,state} = useSelector((store)=>store.gameReducer)
+const {state,time} = useSelector((store)=>store.gameReducer)
 
+const dispatch = useDispatch()
 let interval=null
    
+function saveTimeGame(seconds){
+    dispatch(saveTime(seconds))
+}
+
 useEffect(() => {
-    console.log(state) 
-    if(!pause || state=="in progress"){
+    if(state==="") return setSeconds(0)
+    if(state==="load")  {
+        setSeconds(time)
+        saveTimeGame(0)
+        return
+    }
+    if(state==="in progress"){
         interval = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
+            setSeconds(seconds => seconds + 1)
         }, 1000);
     }
+    if(state==="win"||state==="loss"){
+        return saveTimeGame(seconds)
+    }
+    if(!state !=="load"){
+        saveTimeGame(seconds)   
+    }
     return () => clearInterval(interval);
-    },[pause,state]);
+    },[state]);
     
 return(
     <div className="time">

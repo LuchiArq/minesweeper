@@ -7,7 +7,10 @@ module.exports = db = () => {
     return Promise.resolve();
   }
 
-  return mongoose.connect(process.env.DB)
+  return mongoose.connect(process.env.DB,{
+    useFindAndModify:false,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true})
     .then(database=>{
       connection = database.connections[0].readyState;
     });

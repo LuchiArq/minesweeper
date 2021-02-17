@@ -1,4 +1,7 @@
 import React,{useState,useEffect} from 'react'
+import { ReactComponent as IconProfile } from '../../assets/iconProfile.svg';
+import {useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
 import CreateGame from '../Modal/CreateGame/CreateGame'
 import Register from '../Modal/Register/Register'
 import Rules from '../Modal/Rules/Rules'
@@ -9,10 +12,13 @@ import './home.css'
 
 const Home = () =>{
 
+
 const [modalCreateGame,setModalCreateGame]= useState(false)
 const [modalRegister,setModalRegister]= useState(false)
 const [modalLogin,setModalLogin]= useState(false)
 const [modalRules,setModalRules]= useState(false)
+
+const {name} = useSelector(store=> store.userReducer)
 
 function OpenModalRules(){
     setModalRules(!modalRules)
@@ -34,7 +40,7 @@ function OpenModalLogin(){
                 <CreateGame/>
             </Modal>
             <Modal closeModal={OpenModalRegister} active={modalRegister}> 
-                <Register/>
+                <Register closeModal={OpenModalRegister}/>
             </Modal>
             <Modal closeModal={OpenModalLogin} active={modalLogin}> 
                 <Login/>
@@ -45,12 +51,25 @@ function OpenModalLogin(){
             <div className="home-container">
                 <div className="home-container-buttonGroup">
                     <Button onClick={OpenModalRegister} buttonType='register' children='Registrarse'/>
-                    <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion'/>
+                    {
+                        name ?
+                        <Link to="/profile">
+                        <div className="profile-name">
+                            <h2>{name}</h2>
+                        <IconProfile className="iconProfile"/>
+                        </div>
+                        </Link> :
+                        <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion'/>
+                    }
                 </div>
                 <div className="home-container-welcome">
                     <p className="home-title">Buscaminas</p>
-                    <p className="home-text">Buscaminas es un videojuego para un jugador.El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p> 
-                    <Button onClick={OpenModalRules} buttonType='register' children='Reglas'/> 
+                    <p className="home-text">Buscaminas es un videojuego para un jugador.</p>
+                    <p className="home-text"> El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p> 
+                    <p className="home-text"> Buena Suerte!</p>
+                    <span className="home-button-rules" >
+                        <Button onClick={OpenModalRules} buttonType='register' children='Reglas'/> 
+                    </span>
                 </div>
                 <div className="home-button-jugar">
                     <Button onClick={OpenModalGame} buttonType='primary'>Jugar</Button>

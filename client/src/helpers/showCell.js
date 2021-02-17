@@ -1,13 +1,11 @@
 const showCell = (game,y,x) =>{
-    console.log(game)
     let newTableGame = revealCell(game,y,x)
-
     if(newTableGame.lose){
        let gameLose = lose(newTableGame.table,game.minesLocation)
-        return JSON.parse(JSON.stringify({lose:true,table:gameLose})) 
+        return {lose:true,table:gameLose} 
     }
 
-    return  JSON.parse(JSON.stringify({lose:false,table:newTableGame}));
+    return {lose:false,table:newTableGame}
 }
 
 

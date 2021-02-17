@@ -43,6 +43,9 @@
     margin: 5px;
 }
 .login-submit{
+    width: 100%;
+    display: grid;
+    place-items: center;
     font-size: 1.1em;
     background: none;
     border: none;

@@ -1,25 +1,17 @@
-const { success, error} = require('../helpers.js');
-const {verify} = require('../auth/VerifyToken')
-const User = require('./User.js');
 const db = require('../db.js');
+const { success, error} = require('../helpers.js');
+const {AllDataUser} = require('./UserQuery')
+const {verify} = require('../auth/VerifyToken')
 
-module.exports.myProfile = async (r, cb) => {
-    cb.callbackWaitsForEmptyEventLoop = false;
-    const token = r.headers.Authorization
-    try {
-        await db();
-        const resToken = verify(token)
-        const res = await myProfile(resToken.id);
-        return success(res);
-    } catch (err) {
-        return error(err);
-    }
-  }
 
-  const  myProfile = async (id) => {
-    const user = await User.findById(id)
-    if(!user){
-       return error({message:"Usuario o contraseña incorrecto"})
-    }
-      return user
-  }
+module.exports.dataUser = async (r,cb) =>{
+  const token = JSON.parse(verify(r.headers.Authorization).body)
+  cb.callbackWaitsForEmptyEventLoop = false;
+  try {
+      await db();
+      const res = await AllDataUser(token.id);
+         return success(res)
+  } catch (err) {
+         return error(err)
+      }
+}

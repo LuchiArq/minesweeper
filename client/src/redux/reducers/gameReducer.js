@@ -1,46 +1,68 @@
-import {PAUSE,PLANT_FLAG, START, NEW_GAME, LOAD_GAME, SAVE_GAME} from '../actions/gameActions.js'
+import {PLANT_FLAG, SET_STATE, NEW_GAME, LOAD_GAME, SAVE_GAME,SAVE_TIME} from '../actions/gameActions.js'
 
 const initalState={
-    pause:true,
-    table:{},
+    id:"",
+    loadGame:"",
     state:"",
-    time:"",
-    newGame:{
-        row:null,
-        columns:null,
-        mines:null
-    },
+    time:null,
     difficulty:"",
     flag:[],
+    mines:null
 }
 
 export default (state = initalState, action) =>{
+
     switch(action.type){
-    
+         
+        case LOAD_GAME:{
+            let data = JSON.parse(action.payload.game)
+            console.log(action.payload.score)
+            return{
+                ...state,
+                id:action.payload._id,
+                state:"load",
+                loadGame:data,
+                flag:JSON.parse(action.payload.flag),
+                difficulty:action.payload.difficulty,
+                time:action.payload.score,
+                mines:data.minesLocation.length
+            }
+        }
+        case SAVE_GAME:{
+            return{
+                ...state,
+                savedGame:action.payload
+            }
+        }
        case NEW_GAME :{
-           console.log(action.newGame)
         return{
             ...state,
-            difficulty:action.newGame.difficulty,
-            newGame:{...state.newGame,
-                    row:action.newGame.row,
-                    columns:action.newGame.columns,
-                    mines: action.newGame.difficulty==="Personalizado"?Math.ceil(action.newGame.columns*action.newGame.row*0.2):action.newGame.mines}
+            loadGame:"",
+            
+            state:"",
+            flag:[],
+            difficulty:action.dataGame.difficulty,
+            mines:action.dataGame.mines
         }
        }
-       case START :{
+       case SET_STATE :{
            return{
             ...state,
-            state:"in progress"
+            state:action.state,
            }
        }
 
        case PLANT_FLAG:{
-           var existe = (state.flag.filter(cell=> cell.x == action.cell.x && cell.y == action.cell.y)[0])
-           console.log("CELL ",action.cell, "EXISTE ",existe)
+           var existe = (state.flag.filter(cell=> cell.x === action.cell.x && cell.y === action.cell.y)[0])
            return{
                ...state,
                flag: existe ? state.flag.filter(cell=> cell.x !== action.cell.x || cell.y !== action.cell.y) : state.flag.concat(action.cell)
+           }
+       }
+       case SAVE_TIME:{
+           return{
+               ...state,
+               time: action.time
            }
        }
 

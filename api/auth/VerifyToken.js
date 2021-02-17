@@ -10,7 +10,7 @@ module.exports.verify = (token) => {
     if(!decoded.id){
       return error({message:'JWT not authorized'});
     }
-    return decoded
+    return success(decoded)
 
   } else {
     return error({message:'JWT not authorized'});
