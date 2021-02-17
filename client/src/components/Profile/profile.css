@@ -27,6 +27,7 @@
       color:white;
       grid-area:header;
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
   }
 
@@ -38,6 +39,7 @@
 }
 .profile-name{
     display: flex;
+    align-items: center;
     color :var(--cream)
 }
 .iconProfile{

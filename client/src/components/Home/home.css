@@ -61,7 +61,10 @@
 .home-button-rules{
     margin: 20px 0px;
 }
-
+.profile-name{
+    display:flex;
+    align-items: center;
+}
 .home-title{
     width: auto;
     font-size: calc(3em + 1vw);

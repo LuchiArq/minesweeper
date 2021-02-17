@@ -6,7 +6,6 @@ const db = require('../db.js');
 // crear tabla 
 
 module.exports.createTable = async (r, cb) => {
-    console.log(r.body)
     cb.callbackWaitsForEmptyEventLoop = false;
     const token = JSON.parse(verify(r.headers.Authorization).body)
     const body = JSON.parse(r.body)
@@ -66,7 +65,6 @@ module.exports.saveTable = async (r,cb) => {
 module.exports.scores = async (r,cb) =>{
     cb.callbackWaitsForEmptyEventLoop = false;    
   const token = JSON.parse(verify(r.headers.Authorization).body)
-console.log("TOKEN", token)
     try {
         await db();
         const res = await getScores(token.id)

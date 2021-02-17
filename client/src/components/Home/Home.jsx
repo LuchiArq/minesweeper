@@ -56,7 +56,7 @@ function OpenModalLogin(){
                         <Link to="/profile">
                         <div className="profile-name">
                             <h2>{name}</h2>
-                        <IconProfile className="iconProfile"/>
+                            <IconProfile className="iconProfile"/>
                         </div>
                         </Link> :
                         <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion'/>

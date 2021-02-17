@@ -22,7 +22,6 @@ const logout = ()=>{
     dispatch(Logout())
 }
 
-console.log(token)
 const  OpenModalGame=()=>{
     setModalCreateGame(!modalCreateGame)
 }

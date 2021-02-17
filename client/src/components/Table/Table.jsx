@@ -15,18 +15,15 @@ import './table.css'
 const Table =() => {
 
 const dispatch = useDispatch()
-//console.log("Tamaño de pantalla",window.screen)
-
 const {flag,state,time,loadGame} = useSelector((store)=>store.gameReducer) 
-const {row,columns,mines}=LoadStateLocalStorage("game")
+const {row,columns,mines}= localStorage.game ? LoadStateLocalStorage("game") : {row:8,columns:8,mines:10}
 const [game,setgame] = useState()
 const [modalFinishGame, setModaFinishGame] = useState(false)
 
-console.log("Datos del juego ",loadGame)
 
 useEffect(()=>{
     loadGame && setgame(loadGame)
-    !loadGame && setgame(createTable(row,columns,mines)) 
+    !loadGame &&  localStorage.game && setgame(createTable(row,columns,mines)) 
     !loadGame && dispatch(newGame(LoadStateLocalStorage("game")))
 },[]) 
 
@@ -85,7 +82,6 @@ const UpdateGame = (x,y) =>{
         
     if(countCellsHidden(game).length === game.minesLocation.length){
         dispatch(setStateGame("win"))
-        console.log("Este es el tiempo",time)
         OpenModalFinishGame()
         return
     }

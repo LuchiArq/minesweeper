@@ -21,7 +21,6 @@ const HandleClick=(act)=>{
                 })}
             </ul>
                 {children.map(child=>{
-                    console.log(child.props.label)
                     if(activeTab===child.props.label)
                     return(
                     <div className="box-container-center">

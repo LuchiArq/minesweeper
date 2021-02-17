@@ -7,7 +7,9 @@ import {GET_SAVED_GAMES,
         LOADING_USER,
         NEW_RECORD,
         POST_SAVED_GAMES,
-        ERROR_USER} from '../actions/userActions.js'
+        ERROR_USER,
+        DATA_USER
+    } from '../actions/userActions.js'
 
 const initalState={
     error:"",
@@ -24,9 +26,24 @@ const initalState={
 
 export default (state = initalState, action) =>{
     switch(action.type){
+    case DATA_USER:{
+        return{
+            ...state,
+            token:action.payload.token,
+            error:"",
+            loading:false,
+            records:{
+                ...state.records,
+                Facil:action.payload.records.Facil && action.payload.records.Facil[0],
+                Medio: action.payload.records.Medio && action.payload.records.Medio[0],
+                Dificil:action.payload.records.Dificil && action.payload.records.Dificil[0]
+              },
+            name:action.payload.userName,
+            savedGames:action.payload.tables
+        }
+    }
 
     case POST_SAVED_GAMES:{
-        console.log("ACTION ",action.payload)
         return{
             ...state,
             savedGame:state.savedGames.concat(action.payload)
@@ -34,11 +51,10 @@ export default (state = initalState, action) =>{
     }
 
     case NEW_RECORD:{
-        console.log(state.records[action.payload.difficulty].score>action.payload.score)
         return{
             ...state,
             records:{...state.records,
-                [action.payload.difficulty]:state.records[action.payload.difficulty].score>action.payload.score && action.payload
+                [action.payload.difficulty]:  state.records[action.payload.difficulty] && state.records[action.payload.difficulty].score>action.payload.score ? action.payload : action.payload 
             } 
 
         }

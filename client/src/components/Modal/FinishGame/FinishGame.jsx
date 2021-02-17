@@ -15,21 +15,18 @@ const FinishGame = ({newGame,title,textButton}) => {
     const [nr,setNr] = useState(null)
     const currentRecord = records[difficulty] && records[difficulty].score
 
-    console.log(difficulty,time,currentRecord)
-
     useEffect(() => {
         state==="win" && SaveNewRecord()
     }, [time])
 
-    const SaveNewRecord=()=>{
-        if(difficulty==="Personalizado")return
-        if(state==="win"&& currentRecord>time && time!=0){
-            let newRecord={
-                difficulty:difficulty,
-                score:time,
-                state:state
-            }
-            setNr( <p className="newRecord">
+
+    const setNewRecod = () =>{
+        let newRecord={
+            difficulty:difficulty,
+            score:time,
+            state:state
+        }
+        setNr( <p className="newRecord">
                         <Cheers className="newRecord-icon"/>
                             Nuevo Record
                         <Cheers className="newRecord-icon"/>
@@ -37,6 +34,16 @@ const FinishGame = ({newGame,title,textButton}) => {
 
             dispatch(SaveGame(newRecord))
             dispatch(Record(newRecord))
+    }
+
+    const SaveNewRecord=()=>{
+
+        if(difficulty==="Personalizado")return
+        if(!currentRecord && time!=0){
+            setNewRecod()   
+        }
+        if( currentRecord>time && time!=0){
+            setNewRecod()
         }
 
     }

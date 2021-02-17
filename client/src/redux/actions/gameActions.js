@@ -13,7 +13,7 @@ export const LOADDING_GAME="LOADDING_GAME";
 export function SaveGame(game){
     return function(dispatch){
         dispatch(Request())
-        axios.post("http://localhost:3000/dev/table/createTable",game,{
+        axios.post("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/createTable",game,{
             headers:{
                 Authorization:LoadStateLocalStorage("dataUser").token
             }})

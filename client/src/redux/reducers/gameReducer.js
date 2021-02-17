@@ -16,7 +16,6 @@ export default (state = initalState, action) =>{
          
         case LOAD_GAME:{
             let data = JSON.parse(action.payload.game)
-            console.log(action.payload.score)
             return{
                 ...state,
                 id:action.payload._id,
