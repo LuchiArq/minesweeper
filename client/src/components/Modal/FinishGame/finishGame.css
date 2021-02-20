@@ -1,6 +1,7 @@
 @import '../../../assets/_master.css';
 
 .finishContainer{
+    position: relative;
     display: grid;
     width: 350px;
     color:var(--cream);

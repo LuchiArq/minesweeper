@@ -1,7 +1,7 @@
 @import '../../../assets/_master.css';
 
 .recordContainer {
-  width: 60%;
+  width: 100%;
   border-radius: 10px;
   padding: 15px;
   color: #FDF0D5;
@@ -30,15 +30,4 @@
   display: flex;
   justify-content: space-around;
   grid-area: records;
-}
-
-
-@media (max-width: 1000px) {
-  .recordContainer {
-    width: 85%;}
-}
-
-@media (max-width: 520px) {
-  .recordContainer {
-    width: 95%;}
 }

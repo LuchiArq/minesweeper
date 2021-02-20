@@ -9,11 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import TabsProfile from './TabsProfile'
 import RecordsContainer from './Records/RecordsContainer'
 import SavedGames from '../SavedGames/SavedGames'
-import {getRecords,getSavedGames,Logout} from '../../redux/actions/userActions'
+import {Logout} from '../../redux/actions/userActions'
 
 const Profile  = () =>{
 
-const {token,name,records} = useSelector((store) => store.userReducer)
+const {token,name} = useSelector((store) => store.userReducer)
 const dispatch = useDispatch()
 const history = useHistory()
 const [modalCreateGame,setModalCreateGame]= useState(false)
@@ -32,9 +32,9 @@ const  OpenModalGame=()=>{
 
     return(
         <div className="profile">
-            <Modal closeModal={OpenModalGame} active={modalCreateGame}>
-                <CreateGame/>
-            </Modal>
+            
+           { modalCreateGame && <CreateGame closeModal={OpenModalGame} active={modalCreateGame}/>}
+            
             <div className="profile-container">
                 <div className="profile-container-header">
                     <Button onClick={logout} buttonType="login">Cerrar sesion</Button>
@@ -54,9 +54,9 @@ const  OpenModalGame=()=>{
                     </TabsProfile>
                 </div>
                 <div className="profile-buttons">
-                    <Link to="/">
-                        <Button buttonType="register">Volver</Button>
-                    </Link>
+                 
+                    <Button onClick={()=>history.push("/")} buttonType="secondary">Volver</Button>
+                   
                     <Button onClick={OpenModalGame} buttonType="primary">Jugar</Button>
                 </div>
             </div>

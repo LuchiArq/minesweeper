@@ -11,14 +11,6 @@ module.exports.getScores  =  async (id) =>{
     return {Facil,Medio,Dificil}
 }
 
-module.exports.load = async (id,userId) =>{
-   const table = await Table.find({_id:id,userId:userId})
-   if(!table){
-        return error({message:"No se puede cargar la tabla"})
-    }
-    return table
-}
-
 module.exports.update = async (body) =>{
     const table = await Table.findByIdAndUpdate(body.id,{
         game: body.game,
@@ -46,9 +38,16 @@ module.exports.create = async (user,body)  => {
 }
 
 module.exports.getTablesSaved = async (id) =>{
-    const tables = await Table.find({userId:id,state:"saved"}).sort({createAt:'desc'}).limit(4)
+    const tables = await Table.find({userId:id,state:"saved"}).select('-userId').sort({createAt:'desc'}).limit(4)
     if(!tables.length){
         return error({message:"No posee tablas guardadas"})
     }
     return tables
+}
+
+module.exports.deleteGame = async (id,userId) =>{
+    
+   const game = await Table.findOneAndDelete({_id:id , userId:userId})
+
+    return {message:"Tabla Eliminada",game}
 }

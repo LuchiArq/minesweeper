@@ -61,12 +61,8 @@
     height: 25px;
 }
 
-
-@media (max-width: 1000px) {
-
-  }
   
-  @media (max-width: 520px) {
+  @media (max-width: 550px) {
     .record {
         height: 120px;
         width: 90px;
