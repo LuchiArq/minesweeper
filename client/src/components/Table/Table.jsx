@@ -9,7 +9,6 @@ import createTable from '../../helpers/createTable.js'
 import {setStateGame,newGame,saveTime} from '../../redux/actions/gameActions'
 import { useSelector,useDispatch } from 'react-redux';
 import FinishGame from  '../Modal/FinishGame/FinishGame'
-import Modal from '../Modal/Modal'
 import './table.css'
 
 const Table =() => {
@@ -89,20 +88,22 @@ const UpdateGame = (x,y) =>{
 
     return (
     <div className="mainContainerGame slideIn">
-        <Modal closeModal={OpenModalFinishGame} active={modalFinishGame}>
+        
             <FinishGame 
                 modalType={state} 
                 title={state==="win"? "Ganaste":"Perdiste"} 
                 textButton={state==="win"? "Jugar de Nuevo":"Reintentar"}
                 newGame={again}
                 newRecord={""}
+                closeModal={OpenModalFinishGame} active={modalFinishGame}
                 />
-        </Modal> 
+        
         <div className="game-container">
             <div className="game-container-headerGame">
                 <HeaderGame game={game} again={again} flag={flag} mines={mines} />
             </div>
             <div className="game-container-table">
+                <div className="game-container-table-sec">
                 {     
                   game && game.table.length ?
                     game.table.map((filas,i) =>{
@@ -119,6 +120,7 @@ const UpdateGame = (x,y) =>{
                 })
                     :<div></div>
                 }
+                </div>
                
             </div>
         </div>

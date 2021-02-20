@@ -9,7 +9,6 @@ import {Link} from 'react-router-dom'
 import { useDispatch,useSelector} from 'react-redux';
 import Timer from './Timer'
 import Button from '../Button/Button'
-import Modal from '../Modal/Modal'
 import Pause from '../Modal/Pause/Pause'
 import SaveGame from '../Modal/SaveGame/SaveGame'
 import {getSavedGames} from '../../redux/actions/userActions'
@@ -40,9 +39,9 @@ const saveNewGame = () =>{
                                 mines:game.minesLocation.length})
     setLoading(true)
     if(!id){
-        axios.post("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/createTable",obj, {
+        axios.post("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/createTable",obj, {
             headers:{
-            Authorization:LoadStateLocalStorage("dataUser").token
+                Authorization: LoadStateLocalStorage("dataUser").token
         }})
         .then(res=>{
             setLoading(false)
@@ -55,7 +54,7 @@ const saveNewGame = () =>{
         })
     }
     if(id){
-        axios.put("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/saveTable",obj, {
+        axios.put("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/saveTable",obj, {
             headers:{
             Authorization:LoadStateLocalStorage("dataUser").token
         }})
@@ -118,12 +117,19 @@ function pause(){
                         <Back className="headerGame-icon-back"/>
                 </Link>
            }
-            <Modal closeModal={OpenModalPause} pause={pause} active={modalPause}>
-                <Pause closeModal={pause}/>
-            </Modal>
-            <Modal closeModal={OpenModalSave} pause={save} active={modalSave}>
-                <SaveGame name={name} contiunue={contiunue} loading={loading} closeModal={save} saveNewGame={saveNewGame}/>
-            </Modal>
+            
+           { modalPause && <Pause closeModal={OpenModalPause} pause={pause} active={modalPause}/>}
+            
+           
+           {modalSave &&  <SaveGame 
+                    saveNewGame={saveNewGame}
+                    name={name} 
+                    contiunue={contiunue} 
+                    loading={loading} 
+                    closeModal={OpenModalSave} 
+                    pause={save} 
+                    active={modalSave}/>}
+            
             {
                 state==="win"||state==="loss"?
                 <span className="headerGame-pause">

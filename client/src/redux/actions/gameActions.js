@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {SaveStateLocalStorage,LoadStateLocalStorage} from '../../helpers/localStorage'
+import {LoadStateLocalStorage} from '../../helpers/localStorage'
 export const NEW_GAME = "NEW_GAME";
 export const LOAD_GAME = "LOAD_GAME";
 export const SAVE_GAME = "SAVE_GAME";
@@ -9,13 +9,14 @@ export const SAVE_TIME ="SAVE_TIME";
 export const SET_STATE = "SET_STATE";
 export const LOADDING_GAME="LOADDING_GAME";
 
+const token = LoadStateLocalStorage("dataUser") && LoadStateLocalStorage("dataUser").token
 
 export function SaveGame(game){
     return function(dispatch){
         dispatch(Request())
-        axios.post("https://o0pbthc5nh.execute-api.us-east-2.amazonaws.com/dev/table/createTable",game,{
+        axios.post("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/createTable",game,{
             headers:{
-                Authorization:LoadStateLocalStorage("dataUser").token
+                Authorization:token
             }})
 
         .then(resp=>{

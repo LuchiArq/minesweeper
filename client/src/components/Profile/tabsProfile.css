@@ -16,3 +16,22 @@
 .tabsProfile button:active{
     background-color: var(--background_3);
 }
+
+.box-container-center-child{
+    display: grid;
+    place-items: center;
+    width: 60%;
+}
+
+
+@media (max-width: 1000px) {
+    .box-container-center-child{
+      width: 85%;}
+  } 
+
+@media (max-width: 520px) {
+    .box-container-center-child {
+      width: 95%;}
+  }
+
+

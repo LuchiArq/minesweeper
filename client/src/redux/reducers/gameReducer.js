@@ -1,6 +1,7 @@
 import {PLANT_FLAG, SET_STATE, NEW_GAME, LOAD_GAME, SAVE_GAME,SAVE_TIME} from '../actions/gameActions.js'
 
 const initalState={
+
     id:"",
     loadGame:"",
     state:"",
@@ -13,6 +14,8 @@ const initalState={
 export default (state = initalState, action) =>{
 
     switch(action.type){
+
+
          
         case LOAD_GAME:{
             let data = JSON.parse(action.payload.game)

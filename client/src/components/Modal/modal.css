@@ -27,6 +27,7 @@
   }
  
  .modal {
+  position: relative;
      background-color: var(--modalGlass);
      display: flex;
      align-items: center;
@@ -108,7 +109,8 @@
  @media (max-width: 400px) { 
 
     .modal{
-        width: 80vw;
+        width: 85vw;
+        padding: 10px;
     }
 }
 

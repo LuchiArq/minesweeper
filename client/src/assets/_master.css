@@ -8,6 +8,16 @@
     --dark:#3A3335;
 }
 
+.close-button{
+    z-index: 1000;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+
 .box-container-center{
     width: 100%;
     display: grid;
@@ -37,5 +47,13 @@
 }
 
 .message-error{
+    text-align: center;
     color:tomato;
+}
+
+@media (max-width: 400px) {
+    .close-button{
+        top: -12px;
+        right: -12px;
+    }
 }

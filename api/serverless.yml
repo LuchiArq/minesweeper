@@ -61,27 +61,19 @@ functions:
           method: get
           path:  table/AllTables
           cors: true
-
-  loadTable:
-    handler: table/TableHandler.loadTable
-    events:
-      - http:
-          method: get
-          path:  table/loadTable/{_id}
-          cors: true
-
   scores:
     handler: table/TableHandler.scores
     events:
       - http:
           method: get
-          path: scores
+          path: table/scores
           cors: true
 
-  allDataUser:
-    handler: user/UserHandler.dataUser
+  deleteSabeGame:
+    handler: table/TableHandler.deleteSabeGame
     events:
       - http:
           method: post
-          path: dataUser
+          path: table/delete
           cors: true
+  

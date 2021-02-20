@@ -3,7 +3,7 @@
 .home{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 85%;
-    width: 65%;
+    width: 70%;
     background-image: url(../../assets/homeBackground.svg);
     background-size: cover;
     background-position: center center;
@@ -101,7 +101,10 @@
     }
 }
 
-@media (max-width: 700px) { 
+@media (max-width: 800px) {
+    .home-container-buttonGroup{
+        justify-content: space-between;
+    } 
     .home{
         width: 85%;
     }
@@ -109,7 +112,7 @@
         font-size: calc(2.5em + 1vw);
     }
     .home-text{
-        width: 80%;
+        width: 90%;
         font-size: 14px;
     }
     .home-container{
