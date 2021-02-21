@@ -39,11 +39,13 @@ const saveNewGame = () =>{
                                 mines:game.minesLocation.length})
     setLoading(true)
     if(!id){
+        
         axios.post("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/createTable",obj, {
             headers:{
                 Authorization: LoadStateLocalStorage("dataUser").token
         }})
         .then(res=>{
+            //console.log(res)
             setLoading(false)
             setContinue(true)
             dispatch(getSavedGames())

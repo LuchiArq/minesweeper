@@ -9,19 +9,16 @@ export const SAVE_TIME ="SAVE_TIME";
 export const SET_STATE = "SET_STATE";
 export const LOADDING_GAME="LOADDING_GAME";
 
-const token = LoadStateLocalStorage("dataUser") && LoadStateLocalStorage("dataUser").token
 
 export function SaveGame(game){
     return function(dispatch){
         dispatch(Request())
         axios.post("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/createTable",game,{
             headers:{
-                Authorization:token
+                Authorization:LoadStateLocalStorage("dataUser").token
             }})
 
-        .then(resp=>{
-            console.log("RESPUESTA AL GUARDADO DEL JUEGO",resp)
-        })
+        .then(resp=>{})
         .catch(err=>{
             console.log("ERROR AL GUARDADO DEL JUEGO ", err)
         })

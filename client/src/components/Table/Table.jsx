@@ -14,7 +14,7 @@ import './table.css'
 const Table =() => {
 
 const dispatch = useDispatch()
-const {flag,state,time,loadGame} = useSelector((store)=>store.gameReducer) 
+const {flag,state,loadGame} = useSelector((store)=>store.gameReducer) 
 const {row,columns,mines}= localStorage.game ? LoadStateLocalStorage("game") : {row:8,columns:8,mines:10}
 const [game,setgame] = useState()
 const [modalFinishGame, setModaFinishGame] = useState(false)

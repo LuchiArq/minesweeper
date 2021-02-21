@@ -13,14 +13,11 @@ const Record  = ({difficulty,score}) =>{
             <Cup className="record-cup-icon"/>
           </div>
           <div className="record-score">
-            <span className="record-score-data">{score}<Reloj className="record-score-reloj"/></span>
+            <span className="record-score-data">{score ? ` ${score}s`: '---'}<Reloj className="record-score-reloj"/></span>
           </div>
       </div>
     )
 }
 
-Record.defaultProps = {
-    score: '---'
-}
 
 export default Record

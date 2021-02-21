@@ -9,7 +9,6 @@ module.exports.login = async (data) => {
     const tables = await getTablesSaved(user.id) 
     const records = await getScores(user.id)
 
-  console.log("EL USUARIO ", user)
 
     if(!user){
         return error({message:"Usuario o contraseña incorrecto"})
@@ -43,6 +42,8 @@ module.exports.login = async (data) => {
     const newUser = await User.create(data)
 
     const resp={
+      records:{Facil: [], Medio: [], Dificil: []},
+      tables:[],
       userName:newUser.name, 
       token: jwtToken({id:newUser._id,name:newUser.name})
     }

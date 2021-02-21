@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { ReactComponent as Flag } from '../../assets/flag.svg';
 import { ReactComponent as Bomb } from '../../assets/bomb.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,6 +43,10 @@ const setColor=(celda)=>{
         }
         case 8:{
             return "#931313"
+        }
+
+        default : {
+            return
         }
 
     }

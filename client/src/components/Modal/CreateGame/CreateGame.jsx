@@ -179,7 +179,7 @@ return ReactDom.createPortal(
                    </label>
                        {errors.mines ? <small className="message-error">{errors.mines}</small>: ''}
                    <div className="CreateGame-button">
-                       <Button buttonType="primary">Comenzar !</Button>
+                       <button type="submit" className="button button-primary">Comenzar !</button>
                    </div>
                </form>  
  

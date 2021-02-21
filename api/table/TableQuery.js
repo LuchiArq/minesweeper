@@ -3,7 +3,6 @@ const Table = require('./Table.js');
 
 
 module.exports.getScores  =  async (id) =>{
-
     const Facil = await Table.find({userId:id, difficulty:"Facil",state:"win"}).select('score difficulty').sort({score:'asc'}).limit(1)
     const Medio = await Table.find({userId:id, difficulty:"Medio",state:"win"}).select('score difficulty').sort({score:'asc'}).limit(1)
     const Dificil = await Table.find({userId:id, difficulty:"Dificil",state:"win"}).select('score difficulty').sort({score:'asc'}).limit(1)

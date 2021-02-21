@@ -8,7 +8,6 @@ const RecordsContainer  = () =>{
 const {records} = useSelector((store) => store.userReducer)
 const {Facil,Medio,Dificil} = records 
 
-console.log(Facil,Medio,Dificil)
     return(
         <div className="recordContainer">
             <h2 className="recordContainer-title">Records</h2>

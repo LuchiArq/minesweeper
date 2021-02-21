@@ -51,21 +51,20 @@ const Home = () => {
 
             <div className="home-container">
                 <div className="home-container-buttonGroup">
-                    <Button onClick={name ? logout: OpenModalRegister} buttonType={name ? 'login':'secondary'} children={name?'Cerrar sesion':'Registrarse'} />
-                    {
-                        name ?
-                            <Link to="/profile">
-                                <div className="profile-name">
-                                    <h2>{name}</h2>
-                                    <IconProfile className="iconProfile" />
-                                </div>
-                            </Link> :
-                            <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion' />
-                    }
+                        <Button onClick={name ? logout: OpenModalRegister} buttonType={name ? 'login':'secondary'} children={name?'Cerrar sesion':'Registrarse'} />
+                        {
+                            name ?
+                                <Link to="/profile">
+                                    <div className="profile-name">
+                                        <h2>{name}</h2>
+                                        <IconProfile className="iconProfile" />
+                                    </div>
+                                </Link> :
+                                <Button onClick={OpenModalLogin} buttonType='login' children='Iniciar sesion' />
+                        }
                 </div>
                 <div className="home-container-welcome">
                     <p className="home-title">Buscaminas</p>
-                    <p className="home-text">Buscaminas es un videojuego para un jugador.</p>
                     <p className="home-text"> El objetivo del juego es despejar un campo de minas sin detonar ninguna.</p>
                     <p className="home-text"> Buena Suerte!</p>
                     <span className="home-button-rules" >
@@ -73,7 +72,7 @@ const Home = () => {
                     </span>
                 </div>
                 <div className="home-button-jugar">
-                    <Button onClick={OpenModalGame} buttonType='primary'>Jugar</Button>
+                    <Button onClick={OpenModalGame} buttonType='primary button-large'>Jugar</Button>
                 </div>
                 <div className="home-text-aclaracion">
                     <p>Registrate para poder guardar tus partidas, sino puede continuar como usuario invitado</p>

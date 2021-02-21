@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import './timer.css'
 import { ReactComponent as Reloj } from '../../assets/reloj.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import {saveTime,setStateGame} from '../../redux/actions/gameActions'
+import {saveTime} from '../../redux/actions/gameActions'
 
 const Timer = ()=>{
 

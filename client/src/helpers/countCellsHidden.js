@@ -2,9 +2,9 @@ export const countCellsHidden = (game) =>{
     let table = game.table
     let arr=[];
 
-    table.map(row=>{
+    table.forEach(row=>{
         return(
-            row.map(cell=>{
+            row.forEach(cell=>{
                 if(cell.show===false){
                     arr.push({x:cell.x,y:cell.y})
                 }
@@ -15,9 +15,9 @@ export const countCellsHidden = (game) =>{
 }
 export const showAll = (game) =>{
     let table = game.table
-    table.map(row=>{
+    table.forEach(row=>{
         return(
-            row.map(cell=>{
+            row.forEach(cell=>{
                 if(cell.value!=='x'){
                     cell.show=true
                 }

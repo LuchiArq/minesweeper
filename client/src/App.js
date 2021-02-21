@@ -11,14 +11,15 @@ import {LoadStateLocalStorage} from './helpers/localStorage'
 
 function App() {
 
-  let datauser = LoadStateLocalStorage('dataUser') && LoadStateLocalStorage('dataUser')
-   const dispatch = useDispatch()
+    let datauser = LoadStateLocalStorage('dataUser') && LoadStateLocalStorage('dataUser')
+    const dispatch = useDispatch()
+
   useEffect(()=>{
     datauser && dispatch(AllDataUser(datauser))
   },[])
 
   return ( 
-    <Router>
+    <Router >
         <Route exact path="/" component={Home}/> 
         <Route exact path="/game" component={Table} />
         <Route exact path="/profile" component={Profile} />

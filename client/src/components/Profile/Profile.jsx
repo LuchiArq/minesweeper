@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import './profile.css';
 import Button from '../Button/Button';
-import Modal from '../Modal/Modal'
 import CreateGame from '../Modal/CreateGame/CreateGame'
 import { ReactComponent as IconProfile } from '../../assets/iconProfile.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,7 +56,7 @@ const  OpenModalGame=()=>{
                  
                     <Button onClick={()=>history.push("/")} buttonType="secondary">Volver</Button>
                    
-                    <Button onClick={OpenModalGame} buttonType="primary">Jugar</Button>
+                    <Button onClick={OpenModalGame} buttonType="primary button-large">Jugar</Button>
                 </div>
             </div>
         </div>
