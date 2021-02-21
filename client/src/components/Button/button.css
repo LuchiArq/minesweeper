@@ -16,6 +16,10 @@
     padding-right: 15px;
 }
 
+.button-large{
+    width: 150px;
+}
+
 .button:active{
     box-shadow:none;
     transform: translateY(2px);

@@ -22,7 +22,6 @@ const [gameId, setGameId] = useState()
  } 
 
  const OpenModalDeleteGame=(id)=>{
-     console.log("ID DEL JUEGO ",id)
     setGameId(id)
     setModalDeleteGame(!modalDelteGame)
 }

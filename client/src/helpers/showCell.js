@@ -33,7 +33,7 @@ function revealCell(game,y,x){
         return table
     }
     let arr = getArea(game,y,x)
-    arr.map(data=>{
+    arr.forEach(data=>{
         if(data.value!==0 && table[data.y][data.x].show===false && table[data.y][data.x].flag===false){
             table[data.y][data.x].show=true
         }

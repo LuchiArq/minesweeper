@@ -46,8 +46,8 @@ const FinishGame = ({ newGame, title, textButton, closeModal, active }) => {
         }
         setNr(<p className="newRecord">
             <Cheers className="newRecord-icon" />
-                            Nuevo Record
-                        <Cheers className="newRecord-icon" />
+                         Nuevo Record
+            <Cheers className="newRecord-icon" />
         </p>)
 
         dispatch(SaveGame(newRecord))
@@ -56,11 +56,11 @@ const FinishGame = ({ newGame, title, textButton, closeModal, active }) => {
 
     const SaveNewRecord = () => {
 
-        if (difficulty === "Personalizado") return
-        if (!currentRecord && time != 0) {
+        if (difficulty === "Personalizado" || state==="loss") return
+        if (!currentRecord && time !== 0) {
             setNewRecod()
         }
-        if (currentRecord > time && time != 0) {
+        if (currentRecord > time && time !== 0) {
             setNewRecod()
         }
     }

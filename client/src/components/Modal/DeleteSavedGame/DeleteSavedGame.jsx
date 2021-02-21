@@ -14,7 +14,6 @@ const DeleteSavedGame = ({ closeModal, active ,gameId}) => {
     const [closeModalBackground, setCloseBackground] = useState('')
     const [closeModalContent, setCloseModalContent] = useState('')
     const dispatch = useDispatch()
-    console.log(gameId)
     const deleteGame = ()=>{
         let obj = {
             id:gameId

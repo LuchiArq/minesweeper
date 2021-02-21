@@ -93,9 +93,14 @@ const Register = ({active,closeModal}) =>{
                      
                     
                     <div type="submit" className="register-submit">
-                            <Button buttonType={"primary"}>Registrarse</Button>
+                           
                         {
-                            loading ? <LoadingAnimation/> : <small className="message-error" >{error}</small>    
+                            loading ?
+                            <LoadingAnimation/> :
+                            <Button buttonType={"primary"}>Registrarse</Button>     
+                        }
+                        {
+                            error && <small className="message-error" >{error}</small>
                         }
                     </div>
                 </form>

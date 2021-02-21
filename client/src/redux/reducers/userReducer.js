@@ -33,7 +33,7 @@ export default (state = initalState, action) => {
         case DELETE: {
             return{
                 ...state,
-                saveGames:state.savedGames.filter(game=> game._id != action.payload)
+                saveGames:state.savedGames.filter(game=> game._id !== action.payload)
             }
         }
         case SUCCESS: {

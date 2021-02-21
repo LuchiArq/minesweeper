@@ -40,6 +40,7 @@ export function AllDataUser(datauser){
 export function getSavedGames(){
     return function(dispatch){
         dispatch(request())
+        //"https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/AllTables"
         axios.get("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/AllTables",{
             headers:{
                 Authorization:LoadStateLocalStorage("dataUser").token
@@ -58,7 +59,8 @@ export function getSavedGames(){
 export function getRecords(){
     return function(dispatch){
         dispatch(request())
-        axios.get("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/scores",{
+        //"https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/scores"
+        axios.get("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/table/scores",{
             headers:{
                 Authorization:LoadStateLocalStorage("dataUser").token
             }})
@@ -73,10 +75,12 @@ export function getRecords(){
 export function register(newUser){
     return function(dispatch){
         dispatch(request())
+        //'https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/auth/register'
         axios.post('https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/auth/register',newUser)
         .then((user)=>{
 
            const registerUser = user.data
+           SaveStateLocalStorage("dataUser",registerUser)
            registerUser.statusCode===500?
            dispatch(error(registerUser.message)):
            dispatch(successRegister(registerUser))
@@ -88,7 +92,8 @@ export function register(newUser){
 export function login(user){
     return function(dispatch){
         dispatch(request())
-        axios.post('https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/auth/login',user)
+        //'https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/auth/login'
+        axios.post("https://nogcpvu4tb.execute-api.us-east-2.amazonaws.com/dev/auth/login",user)
         .then((user)=>{
             const loginUser = user.data
             SaveStateLocalStorage("dataUser",loginUser)
@@ -97,7 +102,7 @@ export function login(user){
             dispatch(succesLogin(loginUser)) 
         })
         .catch(err=>{
-            console.log("ESTE ES EL ERROR ",err)
+            console.log(err)
             dispatch(error("El usuario no existe"))
         })
     }

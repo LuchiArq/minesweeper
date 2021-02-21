@@ -20,7 +20,6 @@ const [dataLogin, setDataLogin] = useState({
 })
 
 useEffect(()=>{
-    console.log("ME ESTOY RENDERIZANDO")
     dispatch(SetError(""))
     token && history.push('/profile')
 },[token])
