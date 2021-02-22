@@ -76,7 +76,17 @@
       }
 
       .headerGame-link-back{
-        top: -70px;
-        left: 0;
+        left: 0px;
+    }
+    .headerGame-icon-back{
+        width: 30px;
+        height: 30px;
+      
+    }
+    .headerGame-pause{
+       margin-left: 20px;
+    }
+    .headerGame-TimeAndFlag{
+       margin-right: 0px;
     }
 } 
